@@ -1,58 +1,89 @@
-package com.joe.tools.file;
+ï»¿package com.joe.tools.file;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.List;
+
+import org.apache.commons.io.FileUtils;
 
 /**
- * Ê¹ÓÃURLConnectionÏÂÔØÎÄ¼ş»òÍ¼Æ¬²¢±£´æµ½±¾µØ¡£
+ * ä½¿ç”¨URLConnectionä¸‹è½½æ–‡ä»¶æˆ–å›¾ç‰‡å¹¶ä¿å­˜åˆ°æœ¬åœ°ã€‚
  *
- * @author ÀÏ×ÏÖñ(laozizhu.com)
+ * 
  */
 public class URLConnectionDownloader {
 	public static void main(String[] args) throws Exception {
-		download(
-				"http://storage.shopxx.net/demo-image/3.0/201301/3247296d-f02a-4a44-9d0d-f3343c7d7ddc.jpg",
-				null);
+		String directory = "C:\\Joe\\DIY\\GITHUB\\DIYProjects\\EShop\\WebContent\\upload\\image\\201412\\";
+		String directory2 = "C:\\temp\\";
+		batchDownload("C:\\temp\\URLs.txt",directory2);
+	}
+	
+	
+	/**
+	 * é¡ºåºæ‰¹é‡ä¸‹è½½æ–‡ä»¶å†…éƒ¨çš„URLã€‚ä¸€è¡Œä¸€ä¸ªURL
+	 * @param file
+	 * @throws Exception
+	 */
+	public  static void batchDownload(String filePath,String directory) throws Exception{
+		File file  = new File(filePath.trim());
+		if (!file.exists()){
+			throw new Exception("æ–‡ä»¶è·¯å¾„ä¸æ­£ç¡®");
+		}
+		File folder  = new File(directory.trim());
+		if(folder.exists() && !folder.isDirectory()){
+			throw new Exception("ç›®æ ‡æ–‡ä»¶å¤¹è·¯å¾„ä¸æ­£ç¡®");
+		}
+		if(!folder.exists()){
+			folder.mkdir();
+		}
+		int i=0;
+		List<String> list = FileUtils.readLines(file);
+		for (String string : list) {
+			System.out.println(i++);
+			if(string.trim().equals("")){
+				continue;
+			}
+			download(string.trim(), directory);
+		}
 	}
 
 	/**
-	 * ÏÂÔØÎÄ¼şµ½±¾µØ
+	 * ä¸‹è½½æ–‡ä»¶åˆ°æœ¬åœ°
 	 *
 	 * @param urlString
-	 *            ±»ÏÂÔØµÄÎÄ¼şµØÖ·
+	 *            è¢«ä¸‹è½½çš„æ–‡ä»¶åœ°å€
 	 * @param filename
-	 *            ±¾µØÎÄ¼şÃû
+	 *            æœ¬åœ°æ–‡ä»¶å
 	 * @throws Exception
-	 *             ¸÷ÖÖÒì³£
+	 *             å„ç§å¼‚å¸¸
 	 */
-	public static void download(String urlString, String fileNameStr)
+	public static void download(String urlString, String directory)
 			throws Exception {
-		// ¹¹ÔìURL
+		// æ„é€ URL
 		String filename = null;
 		URL url = new URL(urlString);
-		if (fileNameStr == null) {
-			int index = urlString.indexOf("/201301/");
-			filename = urlString.substring(index+8);
-			filename = "C:\\Joe\\DIY\\L3\\code\\trunk\\Project\\EShop\\WebContent\\upload\\" + filename;
-		}
-		// ´ò¿ªÁ¬½Ó
+		String[] ss = urlString.split("/");
+		filename = directory+"\\"+ss[ss.length-1];
+		
+		// æ‰“å¼€è¿æ¥
 		URLConnection con = url.openConnection();
-		// ÊäÈëÁ÷
+		// è¾“å…¥æµ
 		InputStream is = con.getInputStream();
-		// 1KµÄÊı¾İ»º³å
+		// 1Kçš„æ•°æ®ç¼“å†²
 		byte[] bs = new byte[1024];
-		// ¶ÁÈ¡µ½µÄÊı¾İ³¤¶È
+		// è¯»å–åˆ°çš„æ•°æ®é•¿åº¦
 		int len;
-		// Êä³öµÄÎÄ¼şÁ÷
+		// è¾“å‡ºçš„æ–‡ä»¶æµ
 		OutputStream os = new FileOutputStream(filename);
-		// ¿ªÊ¼¶ÁÈ¡
+		// å¼€å§‹è¯»å–
 		while ((len = is.read(bs)) != -1) {
 			os.write(bs, 0, len);
 		}
-		// Íê±Ï£¬¹Ø±ÕËùÓĞÁ´½Ó
+		// å®Œæ¯•ï¼Œå…³é—­æ‰€æœ‰é“¾æ¥
 		os.close();
 		is.close();
 	}

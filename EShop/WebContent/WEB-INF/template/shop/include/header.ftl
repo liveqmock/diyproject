@@ -46,9 +46,6 @@ $().ready(function() {
 			</a>
 		</div>
 	</div>
-	<div class="span9">
-		[@ad_position id = 1 /]
-	</div>
 	<div class="span10 last">
 		<div class="topNav clearfix">
 			<ul>

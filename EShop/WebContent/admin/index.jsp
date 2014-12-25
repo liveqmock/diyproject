@@ -24,9 +24,9 @@ if (applicationContext != null) {
 <body>
 	<fieldset>
 		<legend>系统出现异常</legend>
-		<p>请检查SHOP++程序是否已正确安装 [<a href="<%=base%>/install/">点击此处进行安装</a>]</p>
+		<p>请检查EShop程序是否已正确安装 [<a href="<%=base%>/install/">点击此处进行安装</a>]</p>
 		<p>
-			<strong>提示: SHOP++安装完成后必须重新启动WEB服务器</strong>
+			<strong>提示: EShop安装完成后必须重新启动WEB服务器</strong>
 		</p>
 	</fieldset>
 </body>

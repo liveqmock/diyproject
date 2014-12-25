@@ -3,8 +3,8 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
-	<display-name>SHOP++</display-name>
-	<description>SHOP++网上商城系统 V3.0</description>
+	<display-name>EShop</display-name>
+	<description>EShop网上商城系统 V1.0</description>
 
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
