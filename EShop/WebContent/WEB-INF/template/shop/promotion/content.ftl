@@ -15,6 +15,7 @@
 	[#include "/shop/include/header.ftl" /]
 	<div class="container promotion">
 		<div class="span6">
+			[#--
 			<div class="hotProductCategory">
 				[@product_category_root_list]
 					[#list productCategories as category]
@@ -33,6 +34,7 @@
 					[/#list]
 				[/@product_category_root_list]
 			</div>
+			--]
 			<div class="hotProduct">
 				<div class="title">${message("shop.product.hotProduct")}</div>
 				<ul>

@@ -39,13 +39,13 @@ $().ready(function() {
 });
 </script>
 <div class="container header">
-	<div class="span5">
+	[#-- <div class="span5">
 		<div class="logo">
 			<a href="${base}/">
 				<img src="${setting.logo}" alt="${setting.siteName}" />
 			</a>
 		</div>
-	</div>
+	</div> --]
 	<div class="span10 last">
 		<div class="topNav clearfix">
 			<ul>
@@ -59,6 +59,9 @@ $().ready(function() {
 				<li id="headerLogout" class="headerLogout">
 					<a href="${base}/logout.jhtml">[${message("shop.header.logout")}]</a>|
 				</li>
+				<li>
+	          		<a class="cart" href="${base}/cart/list.jhtml">${message("shop.header.cart")}</a>
+	  			</li>
 				[@navigation_list position = "top"]
 					[#list navigations as navigation]
 						<li>
@@ -67,19 +70,18 @@ $().ready(function() {
 						</li>
 					[/#list]
 				[/@navigation_list]
+				
+				[#if setting.phone??]
+					<li class="phone">
+						${message("shop.header.phone")}:
+						<strong>${setting.phone}</strong>
+					</li>
+				[/#if]
 			</ul>
 		</div>
-		<div class="cart">
-			<a href="${base}/cart/list.jhtml">${message("shop.header.cart")}</a>
-		</div>
-		[#if setting.phone??]
-			<div class="phone">
-				${message("shop.header.phone")}:
-				<strong>${setting.phone}</strong>
-			</div>
-		[/#if]
+		
 	</div>
-	<div class="span24">
+	[#-- <div class="span24">
 		<ul class="mainNav">
 			[@navigation_list position = "middle"]
 				[#list navigations as navigation]
@@ -90,7 +92,7 @@ $().ready(function() {
 				[/#list]
 			[/@navigation_list]
 		</ul>
-	</div>
+	</div> --]
 	<div class="span24">
 		<div class="tagWrap">
 			<ul class="tag">

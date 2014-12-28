@@ -22,6 +22,7 @@
 <script type="text/javascript" src="${base}/resources/shop/js/jquery.lazyload.js"></script>
 <script type="text/javascript" src="${base}/resources/shop/slider/slider.js"></script>
 <script type="text/javascript" src="${base}/resources/shop/js/common.js"></script>
+
 <script type="text/javascript">
 $().ready(function() {
 
@@ -101,8 +102,12 @@ $().ready(function() {
 </script>
 </head>
 <body>
-	[#include "/shop/include/header.ftl" /]
-	<div class="container index">
+[#include "/shop/include/header.ftl" /]	
+
+	<!-- <div style="height:60px;overflow:hidden;"></div> -->
+	
+	
+	<div id="Z_RightSide" class="container index">
 		<div class="span18">
 			[@ad_position id = 3 /]
 		</div>
@@ -315,5 +320,8 @@ $().ready(function() {
 		</div>
 	</div>
 	[#include "/shop/include/footer.ftl" /]
+
+
+	[#include "/shop/include/tmallslider.ftl" /]	
 </body>
 </html>

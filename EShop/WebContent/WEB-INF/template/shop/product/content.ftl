@@ -419,6 +419,7 @@ $().ready(function() {
 	[#assign productCategory = product.productCategory /]
 	<div class="container productContent">
 		<div class="span6">
+		[#-- 
 			<div class="hotProductCategory">
 				[@product_category_root_list]
 					[#list productCategories as category]
@@ -437,6 +438,7 @@ $().ready(function() {
 					[/#list]
 				[/@product_category_root_list]
 			</div>
+			--]
 			<div class="hotProduct">
 				<div class="title">${message("shop.product.hotProduct")}</div>
 				<ul>

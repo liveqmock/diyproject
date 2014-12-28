@@ -31,7 +31,7 @@ body {
 	_height: 100%;
 	font: 12px tahoma, Arial, Verdana, sans-serif;
 	color: #666666;
-	background-color: #ffffff;
+	background-color: #3C3838;
 	_background-image: url(about: blank);
 	_background-attachment: fixed;
 }
@@ -136,6 +136,7 @@ textarea {
 div.container {
 	width: 950px;
 	margin: 0px auto;
+	background-color: #ffffff;
 	*zoom: 1;
 }
 
@@ -192,7 +193,8 @@ div.container .span9 {
 }
 
 div.container .span10 {
-	width: 390px;
+	/* width: 390px; */
+	float:right;
 }
 
 div.container .span11 {
@@ -835,6 +837,7 @@ div.header .mainNav li {
 	float: left;
 	color: #747474;
 }
+
 
 div.header .mainNav li:hover {
 	color: #505050;
