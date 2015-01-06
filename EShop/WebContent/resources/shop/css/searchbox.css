@@ -1,0 +1,32 @@
+.search {
+    float: left;
+    /* margin-top: 4px; */
+    /* margin-bottom: 4px; */
+    /* height: 35px; */
+    margin: 2;
+    /* width: 700px; */
+}  
+
+.search .inputs {
+    float: left;
+    border: solid 2px #c40000;
+    border-right: none;
+    height: 31px;
+    width: 500px;
+    float: left;
+}
+
+.search .submit {
+float: left;
+width: 80px;
+height: 35px;
+border: none;
+cursor: pointer;
+}
+    .icon-btn-search {
+color: white;
+width: 80px;
+height: 37px;
+background-color: #c40000;
+font: bold;
+}
