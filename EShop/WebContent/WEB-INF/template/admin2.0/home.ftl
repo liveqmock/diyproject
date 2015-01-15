@@ -29,118 +29,382 @@ html, body {
 	height: 100%;
 	overflow: hidden;
 }
+.ui-login-info a{
+	padding-left: 10px;
+}
 </style>
 <script type="text/javascript">
 $().ready(function() {
-
-	var $nav = $("#nav a:not(:last)");
-	var $menu = $("#menu dl");
-	var $menuItem = $("#menu a");
-	
-	$nav.click(function() {
-		var $this = $(this);
-		$nav.removeClass("current");
-		$this.addClass("current");
-		var $currentMenu = $($this.attr("href"));
-		$menu.hide();
-		$currentMenu.show();
-		return false;
-	});
-	
-	$menuItem.click(function() {
-		var $this = $(this);
-		$menuItem.removeClass("current");
-		$this.addClass("current");
-	});
-
+	$('#editprofile').bind('click',jeecg.main.treeSelect);
 });
 </script>
 </head>
 <body class="easyui-layout">
  	<div class="ui-header" data-options="region:'north',split:true,border:false" style="height:40px;overflow: hidden;">
- 	<h1>JEECG-Mybatis 演示系统</h1>
+ 	<h1>${systemName} 后台管理系统</h1>
  	<div  class="ui-login">
- 		<div class="ui-login-info">
+ 		[#--<div class="ui-login-info">
 	 		欢迎 <span class="orange">${user.nickName}</span> 第[<span class="orange">${user.loginCount}</span>]次登录 
 	 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	 		<a class="modify-pwd-btn"  href="javascript:void(0);">修改密码</a> |
  			<a class="logout-btn" href="<%=basePath%>/logout.shtml">退出</a>
- 		</div>
+ 		</div>--]
+ 		
+ 		<div class="ui-login-info">
+			<strong>[@shiro.principal /]</strong>
+			${message("admin.main.hello")}!
+			<a href="../profile/edit.jhtml" id="editprofile">${message("admin.main.profile")}</a>
+			<a href="../logout.jsp" target="_top">${message("admin.main.logout")}</a>
+		</div>
  	</div>
  	</div>
 	<!-- 树形菜单 -->
 	<div data-options="region:'west',split:true,title:'功能导航'" style="width:200px;">
+	
+		
 		<div id="tree-box" class="easyui-accordion" data-options="fit:true,border:false">
-			<c:forEach var="item" items="${menuList}">
-			<div title="${item.text}">
-				<c:forEach var="node" items="${item.children}">
-				<a class="menu-item" href="<%=basePath%>${node.url}">${node.text}</a>
-				</c:forEach>
-			</div>
-			</c:forEach>
+			
+			<!-- 商品管理 -->
+			[#list ["admin:product", "admin:productCategory", "admin:parameterGroup", "admin:attribute", "admin:specification", "admin:brand", "admin:productNotify"] as permission]
+				[@shiro.hasPermission name = permission]
+					<div title="${message("admin.main.productNav")}">				
+						
+						[@shiro.hasPermission name="admin:product"]
+						
+						<a href="../product/list.jhtml" class="menu-item" >${message("admin.main.product")}</a>
+					
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:productCategory"]
+							
+								<a href="../product_category/list.jhtml" class="menu-item" >${message("admin.main.productCategory")}</a>
+							
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:parameterGroup"]
+							
+								<a href="../parameter_group/list.jhtml" class="menu-item" >${message("admin.main.parameterGroup")}</a>
+							
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:attribute"]
+							
+								<a href="../attribute/list.jhtml" class="menu-item" >${message("admin.main.attribute")}</a>
+							
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:specification"]
+							
+								<a href="../specification/list.jhtml" class="menu-item" >${message("admin.main.specification")}</a>
+							
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:brand"]
+							
+								<a href="../brand/list.jhtml" class="menu-item" >${message("admin.main.brand")}</a>
+							
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:productNotify"]
+							
+								<a href="../product_notify/list.jhtml" class="menu-item" >${message("admin.main.productNotify")}</a>
+							
+						[/@shiro.hasPermission]
+					</div>
+					[#break /]
+				[/@shiro.hasPermission]
+			[/#list]
+			
+			
+			<!-- 订单管理 -->
+			[#list ["admin:order", "admin:payment", "admin:refunds", "admin:shipping", "admin:returns", "admin:deliveryCenter", "admin:deliveryTemplate"] as permission]
+				[@shiro.hasPermission name = permission]
+					<div title="${message("admin.main.orderNav")}">				
+						[@shiro.hasPermission name="admin:order"]
+						
+							<a href="../order/list.jhtml" class="menu-item" >${message("admin.main.order")}</a>
+						
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:payment"]
+							
+								<a href="../payment/list.jhtml" class="menu-item" >${message("admin.main.payment")}</a>
+							
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:refunds"]
+							
+								<a href="../refunds/list.jhtml" class="menu-item" >${message("admin.main.refunds")}</a>
+							
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:shipping"]
+							
+								<a href="../shipping/list.jhtml" class="menu-item" >${message("admin.main.shipping")}</a>
+							
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:returns"]
+							
+								<a href="../returns/list.jhtml" class="menu-item" >${message("admin.main.returns")}</a>
+							
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:deliveryCenter"]
+							
+								<a href="../delivery_center/list.jhtml" class="menu-item" >${message("admin.main.deliveryCenter")}</a>
+							
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:deliveryTemplate"]
+							
+								<a href="../delivery_template/list.jhtml" class="menu-item" >${message("admin.main.deliveryTemplate")}</a>
+							
+						[/@shiro.hasPermission]
+					</div>
+					[#break /]
+				[/@shiro.hasPermission]
+			[/#list]
+			
+			<!-- 会员管理 -->
+			[#list ["admin:member", "admin:memberRank", "admin:memberAttribute", "admin:review", "admin:consultation"] as permission]
+				[@shiro.hasPermission name = permission]
+					<div title='${message("admin.main.memberNav")}'>
+						[@shiro.hasPermission name="admin:member"]
+						
+							<a href="../member/list.jhtml" class="menu-item" >${message("admin.main.member")}</a>
+						
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:memberRank"]
+							
+								<a href="../member_rank/list.jhtml" class="menu-item" >${message("admin.main.memberRank")}</a>
+							
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:memberAttribute"]
+							
+								<a href="../member_attribute/list.jhtml" class="menu-item" >${message("admin.main.memberAttribute")}</a>
+							
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:review"]
+							
+								<a href="../review/list.jhtml" class="menu-item" >${message("admin.main.review")}</a>
+							
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:consultation"]
+							
+								<a href="../consultation/list.jhtml" class="menu-item" >${message("admin.main.consultation")}</a>
+							
+						[/@shiro.hasPermission]
+					</div>
+					[#break /]
+				[/@shiro.hasPermission]
+			[/#list]
+			
+			<!-- 内容管理  -->
+			[#list ["admin:navigation", "admin:article", "admin:articleCategory", "admin:tag", "admin:friendLink", "admin:adPosition", "admin:ad", "admin:template", "admin:cache", "admin:static", "admin:index"] as permission]
+				[@shiro.hasPermission name = permission]
+					<div title="${message("admin.main.contentNav")}">
+						[@shiro.hasPermission name="admin:navigation"]
+						
+							<a href="../navigation/list.jhtml" class="menu-item" >${message("admin.main.navigation")}</a>
+						
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:article"]
+							
+								<a href="../article/list.jhtml" class="menu-item" >${message("admin.main.article")}</a>
+							
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:articleCategory"]
+							
+								<a href="../article_category/list.jhtml" class="menu-item" >${message("admin.main.articleCategory")}</a>
+							
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:tag"]
+							
+								<a href="../tag/list.jhtml" class="menu-item" >${message("admin.main.tag")}</a>
+							
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:friendLink"]
+							
+								<a href="../friend_link/list.jhtml" class="menu-item" >${message("admin.main.friendLink")}</a>
+							
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:adPosition"]
+							
+								<a href="../ad_position/list.jhtml" class="menu-item" >${message("admin.main.adPosition")}</a>
+							
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:ad"]
+							
+								<a href="../ad/list.jhtml" class="menu-item" >${message("admin.main.ad")}</a>
+							
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:template"]
+							
+								<a href="../template/list.jhtml" class="menu-item" >${message("admin.main.template")}</a>
+							
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:cache"]
+							
+								<a href="../cache/clear.jhtml" class="menu-item" >${message("admin.main.cache")}</a>
+							
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:static"]
+							
+								<a href="../static/build.jhtml" class="menu-item" >${message("admin.main.static")}</a>
+							
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:index"]
+							
+								<a href="../index/build.jhtml" class="menu-item" >${message("admin.main.index")}</a>
+							
+						[/@shiro.hasPermission]
+					</div>
+					[#break /]
+				[/@shiro.hasPermission]
+			[/#list]
+			
+			<!-- 市场营销 -->
+			[#list ["admin:promotion", "admin:coupon", "admin:seo", "admin:sitemap"] as permission]
+				[@shiro.hasPermission name = permission]
+					<div title="${message("admin.main.marketingNav")}">
+						[@shiro.hasPermission name="admin:promotion"]
+						
+							<a href="../promotion/list.jhtml" class="menu-item" >${message("admin.main.promotion")}</a>
+						
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:coupon"]
+							
+								<a href="../coupon/list.jhtml" class="menu-item" >${message("admin.main.coupon")}</a>
+							
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:seo"]
+							
+								<a href="../seo/list.jhtml" class="menu-item" >${message("admin.main.seo")}</a>
+							
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:sitemap"]
+							
+								<a href="../sitemap/build.jhtml" class="menu-item" >${message("admin.main.sitemap")}</a>
+							
+						[/@shiro.hasPermission]
+					</div>
+					[#break /]
+				[/@shiro.hasPermission]
+			[/#list]
+			
+			<!-- 统计管理 -->
+			[#list ["admin:statistics", "admin:sales", "admin:salesRanking", "admin:purchaseRanking", "admin:deposit"] as permission]
+				[@shiro.hasPermission name = permission]
+					<div title="${message("admin.main.statisticsNav")}">
+						[@shiro.hasPermission name="admin:statistics"]
+						
+							<a href="../statistics/view.jhtml" class="menu-item" >${message("admin.main.statistics")}</a>
+						
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:statistics"]
+							
+								<a href="../statistics/setting.jhtml" class="menu-item" >${message("admin.main.statisticsSetting")}</a>
+							
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:sales"]
+							
+								<a href="../sales/view.jhtml" class="menu-item" >${message("admin.main.sales")}</a>
+							
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:salesRanking"]
+							
+								<a href="../sales_ranking/list.jhtml" class="menu-item" >${message("admin.main.salesRanking")}</a>
+							
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:purchaseRanking"]
+							
+								<a href="../purchase_ranking/list.jhtml" class="menu-item" >${message("admin.main.purchaseRanking")}</a>
+							
+						[/@shiro.hasPermission]
+							[@shiro.hasPermission name="admin:deposit"]
+							
+								<a href="../deposit/list.jhtml" class="menu-item" >${message("admin.main.deposit")}</a>
+							
+						[/@shiro.hasPermission]
+					</div>
+					[#break /]
+				[/@shiro.hasPermission]
+			[/#list]
+			[#list ["admin:setting", "admin:area", "admin:paymentMethod", "admin:shippingMethod", "admin:deliveryCorp", "admin:paymentPlugin", "admin:storagePlugin", "admin:admin", "admin:role", "admin:message", "admin:log"] as permission]
+				[@shiro.hasPermission name = permission]
+					<div title="${message("admin.main.systemNav")}">
+						[@shiro.hasPermission name="admin:setting"]
+						
+							<a href="../setting/edit.jhtml" class="menu-item" >${message("admin.main.setting")}</a>
+						
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:area"]
+							
+								<a href="../area/list.jhtml" class="menu-item" >${message("admin.main.area")}</a>
+							
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:paymentMethod"]
+							
+								<a href="../payment_method/list.jhtml" class="menu-item" >${message("admin.main.paymentMethod")}</a>
+							
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:shippingMethod"]
+							
+								<a href="../shipping_method/list.jhtml" class="menu-item" >${message("admin.main.shippingMethod")}</a>
+							
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:deliveryCorp"]
+							
+								<a href="../delivery_corp/list.jhtml" class="menu-item" >${message("admin.main.deliveryCorp")}</a>
+							
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:paymentPlugin"]
+							
+								<a href="../payment_plugin/list.jhtml" class="menu-item" >${message("admin.main.paymentPlugin")}</a>
+							
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:storagePlugin"]
+							
+								<a href="../storage_plugin/list.jhtml" class="menu-item" >${message("admin.main.storagePlugin")}</a>
+							
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:admin"]
+							
+								<a href="../admin/list.jhtml" class="menu-item" >${message("admin.main.admin")}</a>
+							
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:role"]
+							
+								<a href="../role/list.jhtml" class="menu-item" >${message("admin.main.role")}</a>
+							
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:message"]
+							
+								<a href="../message/send.jhtml" class="menu-item" >${message("admin.main.send")}</a>
+							
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:message"]
+							
+								<a href="../message/list.jhtml" class="menu-item" >${message("admin.main.message")}</a>
+							
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:message"]
+							
+								<a href="../message/draft.jhtml" class="menu-item" >${message("admin.main.draft")}</a>
+							
+						[/@shiro.hasPermission]
+						[@shiro.hasPermission name="admin:log"]
+							
+								<a href="../log/list.jhtml" class="menu-item" >${message("admin.main.log")}</a>
+							
+						[/@shiro.hasPermission]
+					</div>
+					[#break /]
+				[/@shiro.hasPermission]
+			[/#list]			
 		</div>
+	
+	
+	
 	</div>
 	<div data-options="region:'south',split:true,border:false" style="height: 30px;overflow:hidden;">
-		<div class="panel-header" style="border: none;text-align: center;" >CopyRight &copy; 2013 JEECG 版权所有. &nbsp;&nbsp;官方网址: www.jeecg.org</div>
+		<div class="panel-header" style="border: none;text-align: center;" >CopyRight &copy; 2013 EShop 版权所有. &nbsp;&nbsp;官方网址: www.eshop.org</div>
 	</div>
 	<!-- 中间内容页面 -->
 	<div data-options="region:'center'" >
-		<div class="easyui-tabs" id="tab-box" data-options="fit:true,border:false">
-			<div title="Welcome" style="padding:20px;overflow:hidden;"> 
-				<div style="margin-top:20px;">
-					<h3>简要说明</h3>
-					<ul>
-					    <li>JEECG[J2EE Code Generation]是一款基于代码生成器的J2EE智能开发框架,借助该框架可以节省50%的工作量,实现代码生成+手工merge的半智能开发</li>
-					    <li>代码生成：根据表生成对应的Bean,Service,Dao,Action,XML,JSP等,增删改查功能直接使用,实现了快速开发</li> 
-						<li>jeecg-mybatis-framework,采用SpringMVC+Mybatis等主流框架</li> 
-						<li>支持数据库: Mysql,Oracle10g</li> 
-						<li>前端:使用Jquery和Easyui技术.JS封装简洁,操作简单.</li> 
-						<li>权限:对菜单,按钮控制.根据登陆用户权限展示拥有的菜单和按钮.</li> 
-						<li>拦截:对所有无权限URL进行拦截,防止手动发送HTTP请求,确保系统全性.</li> 
-					</ul>
-				</div>
-				
-				<div style="margin-top:20px;">
-					<h3>技术交流</h3>
-					<p>  &nbsp;&nbsp;本系统由JEECG开发提供,如需个性化定制,外包项目,可与本人联系.</p>
-					<ul>
-						<li>交流群:106259349, 106838471, 289782002</li> 
-						<li>开发者：scott</li>
-						<li>邮箱：zhangdaiscott@163.com</li> 
-						<li>官网：<a href="http://www.jeecg.org">http://www.jeecg.org</a></li>
-					</ul>
-				</div>
-				
-				
-				
-			</div>
+		<div class="easyui-tabs" id="tab-box" 
+			data-options="fit:true,border:false">
+				<div title="欢迎" href="${base}/upload/document/manual.htm"></div>
 		</div>	
 	</div>
-	<!--  modify password start -->
-	<div id="modify-pwd-win"  class="easyui-dialog" buttons="#editPwdbtn" title="修改用户密码" data-options="closed:true,iconCls:'icon-save',modal:true" style="width:350px;height:200px;">
-		<form id="pwdForm" action="modifyPwd.do" class="ui-form" method="post">
-     		 <input class="hidden" name="id">
-     		 <input class="hidden" name="email">
-     		 <div class="ui-edit">
-	           <div class="fitem">  
-	              <label>旧密码:</label>  
-	              <input id="oldPwd" name="oldPwd" type="password" class="easyui-validatebox"  data-options="required:true"/>
-	           </div>
-	            <div class="fitem">  
-	               <label>新密码:</label>  
-	               <input id="newPwd" name="newPwd" type="password" class="easyui-validatebox" data-options="required:true" />
-	           </div> 
-	           <div class="fitem">  
-	               <label>重复密码:</label>  
-	              <input id="rpwd" name="rpwd" type="password" class="easyui-validatebox"   required="required" validType="equals['#newPwd']" />
-	           </div> 
-	         </div>
-     	 </form>
-     	 <div id="editPwdbtn" class="dialog-button" >  
-            <a href="javascript:void(0)" class="easyui-linkbutton" id="btn-pwd-submit">Submit</a>  
-            <a href="javascript:void(0)" class="easyui-linkbutton" id="btn-pwd-close">Close</a>  
-         </div>
-	</div>
-	<!-- modify password end  -->
   </body>
 </html>

@@ -3,7 +3,7 @@
 <eshop> 
 	<setting name="siteName" value="商城"/>  
 	<setting name="siteUrl" value="http://localhost:8889/EShop"/>  
-	<setting name="logo" value="/upload/image/logo.gif"/>  
+	<setting name="logo" value="/upload/image/logo.png"/>  
 	<setting name="hotSearch" value="衣服,裤子,衬衫,袜子,冬季新款,秋季新款,夏季促销,团购,限时销售"/>  
 	<setting name="address" value="北京经济技术开发区"/>  
 	<setting name="phone" value="800-000000"/>  

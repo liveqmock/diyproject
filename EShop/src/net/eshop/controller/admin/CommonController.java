@@ -80,7 +80,8 @@ public class CommonController implements ServletContextAware {
 	 */
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String main() {
-		return "/admin/common/main";
+		//return "/admin/common/main";
+		return "/admin2.0/home";
 	}
 
 	/**

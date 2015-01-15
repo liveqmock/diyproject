@@ -10,6 +10,15 @@
  */
 
 /* ---------- Login ---------- */
+body {
+    background-image: url("../../admin2.0/images/login/pick_bg.jpg");
+    background-repeat: repeat-x;
+    color: #363636;
+    font-family: Arial;
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+}
 
 div.login {
 	width: 520px;
