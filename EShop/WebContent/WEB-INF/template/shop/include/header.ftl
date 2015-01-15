@@ -81,7 +81,7 @@ $().ready(function() {
 	<div class="span24">
 		<div class="logo">
 			<a href="${base}/">
-				<img src="${setting.logo}" alt="${setting.siteName}" />
+				<img src="${base}/${setting.logo}" alt="${setting.siteName}" />
 			</a>
 		</div>
 		<div class="search">

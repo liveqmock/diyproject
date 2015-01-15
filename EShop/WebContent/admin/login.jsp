@@ -68,16 +68,6 @@ if (applicationContext != null) {
 
 <link href="<%=base%>/resources/admin/css/common.css" rel="stylesheet" type="text/css" />
 <link href="<%=base%>/resources/admin/css/login.css" rel="stylesheet" type="text/css" />
-<style type="text/css">
-
-.login {
-    background-color: #fff;
-    border: 1px solid #cccccc;
-    border-radius: 10px;
-    min-height: 230px;
-    overflow: hidden;
-}
-</style>
 <script type="text/javascript" src="<%=base%>/resources/admin/js/jquery.js"></script>
 <script type="text/javascript" src="<%=base%>/resources/admin/js/jsbn.js"></script>
 <script type="text/javascript" src="<%=base%>/resources/admin/js/prng4.js"></script>
@@ -148,9 +138,10 @@ if (applicationContext != null) {
 <meta http-equiv="expires" content="0" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Cache-Control" content="no-cache" />
+
+
 <link href="<%=base%>/resources/admin/css/common.css" rel="stylesheet" type="text/css" />
 <link href="<%=base%>/resources/admin/css/login.css" rel="stylesheet" type="text/css" />
-
 <%}%>
 </head>
 <body>
@@ -164,7 +155,7 @@ if (applicationContext != null) {
 				<table>
 					<tr>
 						<td width="190" rowspan="2" align="center" valign="bottom">
-							
+							<img src="<%=base%>/upload/image/logo.png"  />
 						</td>
 						<th>
 							<%=SpringUtils.getMessage("admin.login.username")%>:
@@ -221,18 +212,15 @@ if (applicationContext != null) {
 					</tr>
 				</table>
 				<div class="powered">COPYRIGHT © 2005-2013 ALL RIGHTS RESERVED.</div>
-				<div class="link">
-					<a href="<%=base%>/"><%=SpringUtils.getMessage("admin.login.home")%></a> |
-					<a href="<%=base%>/"><%=SpringUtils.getMessage("admin.login.official")%></a> |
-					<a href="<%=base%>/"><%=SpringUtils.getMessage("admin.login.bbs")%></a> |
-					<a href="<%=base%>/"><%=SpringUtils.getMessage("admin.login.about")%></a> |
-					<a href="<%=base%>/"><%=SpringUtils.getMessage("admin.login.contact")%></a>
-				</div>
 			</form>
 		</div>
 	<%} else {%>
 		<fieldset>
 			<legend>系统出现异常</legend>
+			<p>请检查程序是否已正确安装 [<a href="<%=base%>/install/">点击此处进行安装</a>]</p>
+			<p>
+				<strong>提示: 安装完成后必须重新启动WEB服务器</strong>
+			</p>
 		</fieldset>
 	<%}%>
 </body>

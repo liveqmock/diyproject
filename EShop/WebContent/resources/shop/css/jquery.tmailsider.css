@@ -20,6 +20,12 @@
     padding-right: 8px;
     position: relative;
 }
+.Z_TypeList .Z_MenuList h3, .Z_TypeList .menuIcon, .Z_TypeList .btn_group {
+    background: url("../images/icon_type_list.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+.Z_MenuList .list-item0 h3 {
+    background-position: 0 -390px;
+}
 .Z_TypeList .Z_MenuList {
     overflow: hidden;
     width: 190px;
@@ -72,57 +78,7 @@
 .Z_TypeList .Z_MenuList ul li.curr p a {
     color: #ffffff;
 }
-.Z_TypeList .Z_MenuList h3, .Z_TypeList .menuIcon, .Z_TypeList .btn_group {
-    background: url("../images/icon_type_list.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
-}
-.Z_TypeList .list-item0 h3 {
-    background-position: 0 0;
-}
-.Z_TypeList .list-item1 h3 {
-    background-position: 0 -30px;
-}
-.Z_TypeList .list-item2 h3 {
-    background-position: 0 -60px;
-}
-.Z_TypeList .list-item3 h3 {
-    background-position: 0 -90px;
-}
-.Z_TypeList .list-item4 h3 {
-    background-position: 0 -120px;
-}
-.Z_TypeList .list-item5 h3 {
-    background-position: 0 -150px;
-}
-.Z_TypeList .list-item6 h3 {
-    background-position: 0 -180px;
-}
-.Z_TypeList .list-item7 h3 {
-    background-position: 0 -210px;
-}
-.Z_TypeList .list-item8 h3 {
-    background-position: 0 -240px;
-}
-.Z_TypeList .list-item9 h3 {
-    background-position: 0 -270px;
-}
-.Z_TypeList .list-item10 h3 {
-    background-position: 0 -300px;
-}
-.Z_TypeList .list-item11 h3 {
-    background-position: 0 -330px;
-}
-.Z_TypeList .list-item12 h3 {
-    background-position: 0 -360px;
-}
-.Z_TypeList .list-item13 h3 {
-    background-position: 0 -390px;
-}
-.Z_TypeList .list-item14 h3 {
-    background-position: 0 -420px;
-}
-.Z_TypeList .list-item15 h3 {
-    background-position: 0 -450px;
-}
+
 .Z_TypeList .menuIcon {
     background-position: -7px -480px;
     display: block;
@@ -175,8 +131,8 @@
     border: 1px solid #dfdfdf;
     box-shadow: 2px 2px 5px #888;
     display: none;
-    min-height: 500px;
-    min-width: 500px;
+    max-height: 500px;
+    max-width: 500px;
     overflow: visible;
     position: absolute;
     z-index: 999;
@@ -186,7 +142,7 @@
     height: auto;
     max-height: 525px;
     padding: 10px 10px 10px 0;
-    width: 744px;
+    width: auto;
 }
 .Z_SubList ul {
     display: inline-block;
@@ -199,7 +155,7 @@
 }
 .Z_SubList .subItem {
     overflow: hidden;
-    width: 218px;
+    width: auto;
 }
 .Z_SubList .subItem-hd {
     border-bottom: 2px solid #000;
