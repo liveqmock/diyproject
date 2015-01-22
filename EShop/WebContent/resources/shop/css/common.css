@@ -464,7 +464,7 @@ span.requiredField {
     padding-right: 3px;
 }
 label.fieldError {
-    color: #ffb042;
+    color: #F4102A;
     line-height: 23px;
     padding-left: 6px;
 }
@@ -585,6 +585,7 @@ div.header .mainNav {
     color: #f50;
     height: 36px;
     overflow: hidden;
+     background-color: #E4D8D2;
 }
 div.header .mainNav li {
     color: #747474;

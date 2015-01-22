@@ -5,8 +5,8 @@
 	<setting name="siteUrl" value="http://localhost:8889/EShop"/>  
 	<setting name="logo" value="/upload/image/logo.png"/>  
 	<setting name="hotSearch" value="衣服,裤子,衬衫,袜子,冬季新款,秋季新款,夏季促销,团购,限时销售"/>  
-	<setting name="address" value="北京经济技术开发区"/>  
-	<setting name="phone" value="800-000000"/>  
+	<setting name="address" value="武汉光谷软件园"/>  
+	<setting name="phone" value="600-6666666"/>  
 	<setting name="zipCode" value="500000"/>  
 	<setting name="email" value="test@test.net"/>  
 	<setting name="certtext" value="京ICP备30000000号"/>  

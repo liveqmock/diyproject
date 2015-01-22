@@ -253,34 +253,16 @@ $().ready(function() {
 </script>
 </head>
 <body>
+<div id="Z_RightSide" class="container index">
 	[#include "/shop/include/header.ftl" /]
 	<div class="container productList">
 		<div class="span6">
-			[#-- 
-			<div class="hotProductCategory">
-				[@product_category_root_list]
-					[#list productCategories as category]
-						<dl[#if !category_has_next] class="last"[/#if]>
-							<dt>
-								<a href="${base}${category.path}">${category.name}</a>
-							</dt>
-							[@product_category_children_list productCategoryId = category.id count = 4]
-								[#list productCategories as productCategory]
-									<dd>
-										<a href="${base}${productCategory.path}">${productCategory.name}</a>
-									</dd>
-								[/#list]
-							[/@product_category_children_list]
-						</dl>
-					[/#list]
-				[/@product_category_root_list]
-			</div>
-			--]
+			
 			<div class="hotProduct">
 				<div class="title">${message("shop.product.hotProduct")}</div>
 				<ul>
 					[#if productCategory??]
-						[@product_list productCategoryId = productCategory.id count = 10 orderBy="monthSales desc"]
+						[@product_list productCategoryId = productCategory.id count = 10 orderBy="monthSales desc" useCache=false]
 							[#list products as product]
 								<li[#if !product_has_next] class="last"[/#if]>
 									<a href="${base}${product.path}" title="${product.name}">${abbreviate(product.name, 30)}</a>
@@ -297,7 +279,7 @@ $().ready(function() {
 							[/#list]
 						[/@product_list]
 					[#else]
-						[@product_list count = 10 orderBy="monthSales desc"]
+						[@product_list count = 10 orderBy="monthSales desc" useCache=false]
 							[#list products as product]
 								<li[#if !product_has_next] class="last"[/#if]>
 									<a href="${base}${product.path}" title="${product.name}">${abbreviate(product.name, 30)}</a>
@@ -498,5 +480,7 @@ $().ready(function() {
 		</div>
 	</div>
 	[#include "/shop/include/footer.ftl" /]
+</div>
+[#include "/shop/include/tmallslider.ftl" /]
 </body>
 </html>

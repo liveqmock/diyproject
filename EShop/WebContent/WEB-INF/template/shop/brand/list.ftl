@@ -36,26 +36,7 @@ $().ready(function() {
 	[#include "/shop/include/header.ftl" /]
 	<div class="container brandList">
 		<div class="span6">
-			[#-- 
-			<div class="hotProductCategory">
-				[@product_category_root_list]
-					[#list productCategories as category]
-						<dl[#if !category_has_next] class="last"[/#if]>
-							<dt>
-								<a href="${base}${category.path}">${category.name}</a>
-							</dt>
-							[@product_category_children_list productCategoryId = category.id count = 4]
-								[#list productCategories as productCategory]
-									<dd>
-										<a href="${base}${productCategory.path}">${productCategory.name}</a>
-									</dd>
-								[/#list]
-							[/@product_category_children_list]
-						</dl>
-					[/#list]
-				[/@product_category_root_list]
-			</div>
-			--]
+			
 			<div class="hotProduct">
 				<div class="title">${message("shop.product.hotProduct")}</div>
 				<ul>
