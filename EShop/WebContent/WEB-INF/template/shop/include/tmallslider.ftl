@@ -59,7 +59,6 @@ a:hover{color:#990000;}
 		</div>		
 	</div>
 	
-	<script type="text/javascript" src="${base}/resources/shop/js/jquery-1.8.2.min.js"></script>
 	<script type="text/javascript" src="${base}/resources/shop/js/jquery.tmailsider.js"></script>
 	<script type="text/javascript">
 		$('#Z_TypeList').Z_TMAIL_SIDER(

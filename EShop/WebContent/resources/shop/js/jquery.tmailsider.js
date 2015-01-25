@@ -20,8 +20,8 @@
 		initPosition();
 
 		var isIE = navigator.userAgent.indexOf('MSIE') != -1;
-	    var isIE6 = isIE && ([/MSIE (\d)\.0/i.exec(navigator.userAgent)][0][1] == '6');
-
+	    //var isIE6 = isIE && ([/MSIE (\d)\.0/i.exec(navigator.userAgent)][0][1] == '6');
+		var isIE6 = isIE && (getIEVersion(navigator.userAgent).charAt(0) == '6');
 	 	// 重新定位
 		$(window).resize(function() {
 			initPosition();
@@ -187,6 +187,15 @@
 		});
 	};
 	
+	function getIEVersion(userAgent) {  
+	    if(userAgent.indexOf("MSIE")!=-1){  
+	        brower = "IE";  
+	        var start = userAgent.indexOf("MSIE");  
+	        var end = userAgent.indexOf(";",start);  
+			return userAgent.substring(start+5,end);  
+	    }
+		return null;
+	} 
 	// 默认配置项
 	$.fn.Z_TMAIL_SIDER.defaults = {
 		target: $('#Z_RightSide'),

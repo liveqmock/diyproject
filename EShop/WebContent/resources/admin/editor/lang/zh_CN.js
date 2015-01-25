@@ -231,7 +231,7 @@ KindEditor.lang({
 	'template.replaceContent' : '替换当前内容',
 	'template.fileList' : {
 		'1.html' : '图片和文字',
-		'2.html' : '表格',
+		'clothes.html' : '表格和文字',
 		'3.html' : '项目编号'
 	}
 }, 'zh_CN');
