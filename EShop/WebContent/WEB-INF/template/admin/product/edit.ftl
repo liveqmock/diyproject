@@ -457,6 +457,7 @@ $().ready(function() {
 					<input type="text" name="marketPrice" class="text" value="${product.marketPrice}" maxlength="16" title="${message("admin.product.marketPriceTitle")}" />
 				</td>
 			</tr>
+			
 			<tr>
 				<th>
 					${message("Product.image")}:
@@ -471,6 +472,7 @@ $().ready(function() {
 					</span>
 				</td>
 			</tr>
+			
 			<tr>
 				<th>
 					${message("Product.unit")}:

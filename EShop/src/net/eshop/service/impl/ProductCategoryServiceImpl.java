@@ -90,42 +90,42 @@ public class ProductCategoryServiceImpl extends BaseServiceImpl<ProductCategory,
 
 	@Override
 	@Transactional
-	@CacheEvict(value = { "product", "productCategory", "review", "consultation" }, allEntries = true)
+	@CacheEvict(value = { "product", "productCategory", "review", "consultation", "brand" }, allEntries = true)
 	public void save(ProductCategory productCategory) {
 		super.save(productCategory);
 	}
 
 	@Override
 	@Transactional
-	@CacheEvict(value = { "product", "productCategory", "review", "consultation" }, allEntries = true)
+	@CacheEvict(value = { "product", "productCategory", "review", "consultation", "brand" }, allEntries = true)
 	public ProductCategory update(ProductCategory productCategory) {
 		return super.update(productCategory);
 	}
 
 	@Override
 	@Transactional
-	@CacheEvict(value = { "product", "productCategory", "review", "consultation" }, allEntries = true)
+	@CacheEvict(value = { "product", "productCategory", "review", "consultation", "brand" }, allEntries = true)
 	public ProductCategory update(ProductCategory productCategory, String... ignoreProperties) {
 		return super.update(productCategory, ignoreProperties);
 	}
 
 	@Override
 	@Transactional
-	@CacheEvict(value = { "product", "productCategory", "review", "consultation" }, allEntries = true)
+	@CacheEvict(value = { "product", "productCategory", "review", "consultation", "brand" }, allEntries = true)
 	public void delete(Long id) {
 		super.delete(id);
 	}
 
 	@Override
 	@Transactional
-	@CacheEvict(value = { "product", "productCategory", "review", "consultation" }, allEntries = true)
+	@CacheEvict(value = { "product", "productCategory", "review", "consultation", "brand" }, allEntries = true)
 	public void delete(Long... ids) {
 		super.delete(ids);
 	}
 
 	@Override
 	@Transactional
-	@CacheEvict(value = { "product", "productCategory", "review", "consultation" }, allEntries = true)
+	@CacheEvict(value = { "product", "productCategory", "review", "consultation", "brand" }, allEntries = true)
 	public void delete(ProductCategory productCategory) {
 		super.delete(productCategory);
 	}

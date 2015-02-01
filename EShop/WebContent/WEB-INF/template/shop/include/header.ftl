@@ -88,7 +88,8 @@ $().ready(function() {
 		</div>
 		<div class="search">
 	        <form id="productSearchForm" method="get" action="/EShop/product/search.jhtml">
-	            <input class="keyword inputs" maxlength="30" value="商品搜索" name="keyword">
+	        	<input name="keyword" class="keyword  inputs" value="${productKeyword!message("shop.header.keyword")}" maxlength="30" />
+	            <!-- <input class="keyword inputs" maxlength="30" value="商品搜索" name="keyword"> -->
 	            <button class="submit icon-btn-search" type="submit">搜 索</button>
 	        </form>
 	    </div>
