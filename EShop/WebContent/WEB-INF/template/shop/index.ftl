@@ -1,6 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+<meta http-equiv="pragma" content="no-cache" />
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 [@seo type = "index"]
 	<title>[#if seo.title??][@seo.title?interpret /][#else]${message("shop.index.title")}[/#if]</title>
@@ -155,7 +156,7 @@ $().ready(function() {
 				<strong>${message("shop.index.hotProductCategory")}</strong>CATEGORY
 			</div>
 			<div class="content">
-				[@product_category_root_list count = 4]
+				[@product_category_root_list count = 2]
 					<table>
 						[#list productCategories as rootProductCategory]
 							<tr[#if !rootProductCategory_has_next] class="last"[/#if]>

@@ -29,6 +29,7 @@ $().ready(function() {
 	var $statusTr = $("#statusTr");
 	var $status = $("#status");
 	var $submit = $(":submit");
+	var $buildAll = $("#buildAll");
 	
 	var first;
 	var buildCount;
@@ -40,6 +41,25 @@ $().ready(function() {
 	var endDate;
 	var count;
 
+	$("#buildAll").click(function(){
+		alert('${message("admin.static.buildAll.alert")}');
+		buildAll();
+	});
+	function buildAll(){
+		$.ajax({
+			url: "buildAll.jhtml",
+			type: "POST",
+			cache: false,
+			success: function(data) {
+				if (!data.isCompleted) {
+					
+				} else {
+					$.message("success", "${message("admin.static.success")} ");
+				}
+			}
+		});
+	}
+	
 	$buildType.change(function() {
 		var $this = $(this);
 		if ($this.val() == "article") {
@@ -90,6 +110,7 @@ $().ready(function() {
 			build();
 		}
 	});
+	
 	
 	function build() {
 		$.ajax({
@@ -231,7 +252,8 @@ $().ready(function() {
 				</th>
 				<td>
 					<input type="submit" class="button" value="${message("admin.common.submit")}" />
-					<input type="button" class="button" value="${message("admin.common.back")}" onclick="location.href='../common/index.jhtml'" />
+					<input id="buildAll" type="button" class="button" value="${message("admin.static.buildAll")}" />
+					[#--<input type="button" class="button" value="${message("admin.common.back")}" onclick="location.href='../common/index.jhtml'" />--]
 				</td>
 			</tr>
 		</table>

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <eshop> 
-	<setting name="siteName" value="商城"/>  
+	<setting name="siteName" value="电子商务商城综合运营平台"/>  
 	<setting name="siteUrl" value="http://localhost:8889/EShop"/>  
 	<setting name="logo" value="/upload/image/logo.png"/>  
-	<setting name="hotSearch" value="衣服,裤子,衬衫,袜子,冬季新款,秋季新款,夏季促销,团购,限时销售"/>  
+	<setting name="hotSearch" value="羽绒服,牛仔裤,零食,进口食品,冬季新款,秋季新款,夏季促销,团购,限时销售"/>  
 	<setting name="address" value="武汉光谷软件园"/>  
 	<setting name="phone" value="600-6666666"/>  
 	<setting name="zipCode" value="500000"/>  

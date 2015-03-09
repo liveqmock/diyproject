@@ -64,7 +64,7 @@ $().ready(function() {
 					[@navigation_list position = "top"]
 						[#list navigations as navigation]
 							<li>
-								<a href="${base}/${navigation.url}"[#if navigation.isBlankTarget] target="_blank"[/#if]>${navigation.name}</a>
+								<a href="${navigation.url}"[#if navigation.isBlankTarget] target="_blank"[/#if]>${navigation.name}</a>
 								[#if navigation_has_next]|[/#if]
 							</li>
 						[/#list]
@@ -119,7 +119,7 @@ $().ready(function() {
 				[@navigation_list position = "middle"]
 					[#list navigations as navigation]
 						<li class="icon">
-							<a href="${base}/${navigation.url}"[#if navigation.isBlankTarget] target="_blank"[/#if]>${navigation.name}</a>
+							<a href="${navigation.url}"[#if navigation.isBlankTarget] target="_blank"[/#if]>${navigation.name}</a>
 							
 						</li>
 					[/#list]

@@ -86,6 +86,15 @@ public class StaticController extends BaseController {
 		return "/admin/static/build";
 	}
 
+	@RequestMapping(value = "/buildAll", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> buildAll(){
+		int buildCount = staticService.buildAll();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("buildCount", buildCount);
+		map.put("isCompleted", true);
+		return map;
+	}
 	/**
 	 * 生成静态
 	 */
