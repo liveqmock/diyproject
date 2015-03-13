@@ -1,7 +1,7 @@
 /*
- * 
- * 
- * 
+ *
+ *
+ *
  */
 package net.eshop;
 
@@ -12,9 +12,13 @@ import javax.annotation.Resource;
 
 import net.eshop.Setting.AccountLockType;
 import net.eshop.Setting.CaptchaType;
+import net.eshop.encryption.DESedeEncryption;
+import net.eshop.encryption.UnAuthorizedUsageOfSoftware;
 import net.eshop.entity.Admin;
+import net.eshop.entity.SystemConfig;
 import net.eshop.service.AdminService;
 import net.eshop.service.CaptchaService;
+import net.eshop.service.SystemConfigService;
 import net.eshop.util.SettingUtils;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -32,72 +36,97 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 
+
 /**
  * 权限认证
- * 
- * 
- * 
+ *
+ *
+ *
  */
-public class AuthenticationRealm extends AuthorizingRealm {
+public class AuthenticationRealm extends AuthorizingRealm
+{
 
 	@Resource(name = "captchaServiceImpl")
 	private CaptchaService captchaService;
 	@Resource(name = "adminServiceImpl")
 	private AdminService adminService;
 
+	@Resource(name = "systemConfigServiceImpl")
+	private SystemConfigService systemConfigService;
+
 	/**
 	 * 获取认证信息
-	 * 
+	 *
 	 * @param token
-	 *            令牌
+	 *           令牌
 	 * @return 认证信息
 	 */
 	@Override
-	protected AuthenticationInfo doGetAuthenticationInfo(org.apache.shiro.authc.AuthenticationToken token) {
-		AuthenticationToken authenticationToken = (AuthenticationToken) token;
-		String username = authenticationToken.getUsername();
-		String password = new String(authenticationToken.getPassword());
-		String captchaId = authenticationToken.getCaptchaId();
-		String captcha = authenticationToken.getCaptcha();
-		String ip = authenticationToken.getHost();
-		if (!captchaService.isValid(CaptchaType.adminLogin, captchaId, captcha)) {
+	protected AuthenticationInfo doGetAuthenticationInfo(final org.apache.shiro.authc.AuthenticationToken token)
+	{
+		if (!isEShopAuthorized())
+		{
+			throw new UnAuthorizedUsageOfSoftware(
+					"You are not authorized to use this software. Please contact with the vendor of this software immediately!");
+		}
+		final AuthenticationToken authenticationToken = (AuthenticationToken) token;
+		final String username = authenticationToken.getUsername();
+		final String password = new String(authenticationToken.getPassword());
+		final String captchaId = authenticationToken.getCaptchaId();
+		final String captcha = authenticationToken.getCaptcha();
+		final String ip = authenticationToken.getHost();
+		if (!captchaService.isValid(CaptchaType.adminLogin, captchaId, captcha))
+		{
 			throw new UnsupportedTokenException();
 		}
-		if (username != null && password != null) {
-			Admin admin = adminService.findByUsername(username);
-			if (admin == null) {
+		if (username != null)
+		{
+			final Admin admin = adminService.findByUsername(username);
+			if (admin == null)
+			{
 				throw new UnknownAccountException();
 			}
-			if (!admin.getIsEnabled()) {
+			if (!admin.getIsEnabled())
+			{
 				throw new DisabledAccountException();
 			}
-			Setting setting = SettingUtils.get();
-			if (admin.getIsLocked()) {
-				if (ArrayUtils.contains(setting.getAccountLockTypes(), AccountLockType.admin)) {
-					int loginFailureLockTime = setting.getAccountLockTime();
-					if (loginFailureLockTime == 0) {
+			final Setting setting = SettingUtils.get();
+			if (admin.getIsLocked())
+			{
+				if (ArrayUtils.contains(setting.getAccountLockTypes(), AccountLockType.admin))
+				{
+					final int loginFailureLockTime = setting.getAccountLockTime();
+					if (loginFailureLockTime == 0)
+					{
 						throw new LockedAccountException();
 					}
-					Date lockedDate = admin.getLockedDate();
-					Date unlockDate = DateUtils.addMinutes(lockedDate, loginFailureLockTime);
-					if (new Date().after(unlockDate)) {
+					final Date lockedDate = admin.getLockedDate();
+					final Date unlockDate = DateUtils.addMinutes(lockedDate, loginFailureLockTime);
+					if (new Date().after(unlockDate))
+					{
 						admin.setLoginFailureCount(0);
 						admin.setIsLocked(false);
 						admin.setLockedDate(null);
 						adminService.update(admin);
-					} else {
+					}
+					else
+					{
 						throw new LockedAccountException();
 					}
-				} else {
+				}
+				else
+				{
 					admin.setLoginFailureCount(0);
 					admin.setIsLocked(false);
 					admin.setLockedDate(null);
 					adminService.update(admin);
 				}
 			}
-			if (!DigestUtils.md5Hex(password).equals(admin.getPassword())) {
-				int loginFailureCount = admin.getLoginFailureCount() + 1;
-				if (loginFailureCount >= setting.getAccountLockCount()) {
+			if (!DigestUtils.md5Hex(password).equals(admin.getPassword()))
+			{
+				final int loginFailureCount = admin.getLoginFailureCount() + 1;
+				if (loginFailureCount >= setting.getAccountLockCount())
+				{
 					admin.setIsLocked(true);
 					admin.setLockedDate(new Date());
 				}
@@ -116,23 +145,40 @@ public class AuthenticationRealm extends AuthorizingRealm {
 
 	/**
 	 * 获取授权信息
-	 * 
+	 *
 	 * @param principals
-	 *            principals
+	 *           principals
 	 * @return 授权信息
 	 */
 	@Override
-	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-		Principal principal = (Principal) principals.fromRealm(getName()).iterator().next();
-		if (principal != null) {
-			List<String> authorities = adminService.findAuthorities(principal.getId());
-			if (authorities != null) {
-				SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
+	protected AuthorizationInfo doGetAuthorizationInfo(final PrincipalCollection principals)
+	{
+		final Principal principal = (Principal) principals.fromRealm(getName()).iterator().next();
+		if (principal != null)
+		{
+			final List<String> authorities = adminService.findAuthorities(principal.getId());
+			if (authorities != null)
+			{
+				final SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 				authorizationInfo.addStringPermissions(authorities);
 				return authorizationInfo;
 			}
 		}
 		return null;
+	}
+
+	private boolean isEShopAuthorized()
+	{
+		final SystemConfig encryptionConfig = systemConfigService.getEncryptionConfig();
+		if (encryptionConfig == null)
+		{
+			return false;
+		}
+		else
+		{
+			final String encryptedHex = encryptionConfig.getValue();
+			return DESedeEncryption.matchMACAddress(encryptedHex);
+		}
 	}
 
 }

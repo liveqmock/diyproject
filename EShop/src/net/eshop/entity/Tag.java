@@ -1,7 +1,7 @@
 /*
- * 
- * 
- * 
+ *
+ *
+ *
  */
 package net.eshop.entity;
 
@@ -20,30 +20,33 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
+
 /**
  * Entity - 标签
- * 
- * 
- * 
+ *
+ *
+ *
  */
 @Entity
 @Table(name = "t_tag")
 @SequenceGenerator(name = "sequenceGenerator", sequenceName = "t_tag_sequence")
-public class Tag extends OrderEntity {
+public class Tag extends OrderEntity
+{
 
 	private static final long serialVersionUID = -2735037966597250149L;
 
 	/**
 	 * 类型
 	 */
-	public enum Type {
+	public enum Type
+	{
 
 		/** 文章标签 */
 		article,
 
 		/** 商品标签 */
 		product
-	};
+	}
 
 	/** 名称 */
 	private String name;
@@ -65,124 +68,136 @@ public class Tag extends OrderEntity {
 
 	/**
 	 * 获取名称
-	 * 
+	 *
 	 * @return 名称
 	 */
 	@NotEmpty
 	@Length(max = 200)
 	@Column(nullable = false)
-	public String getName() {
+	public String getName()
+	{
 		return name;
 	}
 
 	/**
 	 * 设置名称
-	 * 
+	 *
 	 * @param name
-	 *            名称
+	 *           名称
 	 */
-	public void setName(String name) {
+	public void setName(final String name)
+	{
 		this.name = name;
 	}
 
 	/**
 	 * 获取类型
-	 * 
+	 *
 	 * @return 类型
 	 */
 	@NotNull(groups = Save.class)
 	@Column(nullable = false, updatable = false)
-	public Type getType() {
+	public Type getType()
+	{
 		return type;
 	}
 
 	/**
 	 * 设置类型
-	 * 
+	 *
 	 * @param type
-	 *            类型
+	 *           类型
 	 */
-	public void setType(Type type) {
+	public void setType(final Type type)
+	{
 		this.type = type;
 	}
 
 	/**
 	 * 获取图标
-	 * 
+	 *
 	 * @return 图标
 	 */
 	@Length(max = 200)
-	public String getIcon() {
+	public String getIcon()
+	{
 		return icon;
 	}
 
 	/**
 	 * 设置图标
-	 * 
+	 *
 	 * @param icon
-	 *            图标
+	 *           图标
 	 */
-	public void setIcon(String icon) {
+	public void setIcon(final String icon)
+	{
 		this.icon = icon;
 	}
 
 	/**
 	 * 获取备注
-	 * 
+	 *
 	 * @return 备注
 	 */
 	@Length(max = 200)
-	public String getMemo() {
+	public String getMemo()
+	{
 		return memo;
 	}
 
 	/**
 	 * 设置备注
-	 * 
+	 *
 	 * @param memo
-	 *            备注
+	 *           备注
 	 */
-	public void setMemo(String memo) {
+	public void setMemo(final String memo)
+	{
 		this.memo = memo;
 	}
 
 	/**
 	 * 获取文章
-	 * 
+	 *
 	 * @return 文章
 	 */
 	@ManyToMany(mappedBy = "tags", fetch = FetchType.LAZY)
-	public Set<Article> getArticles() {
+	public Set<Article> getArticles()
+	{
 		return articles;
 	}
 
 	/**
 	 * 设置文章
-	 * 
+	 *
 	 * @param articles
-	 *            文章
+	 *           文章
 	 */
-	public void setArticles(Set<Article> articles) {
+	public void setArticles(final Set<Article> articles)
+	{
 		this.articles = articles;
 	}
 
 	/**
 	 * 获取商品
-	 * 
+	 *
 	 * @return 商品
 	 */
 	@ManyToMany(mappedBy = "tags", fetch = FetchType.LAZY)
-	public Set<Product> getProducts() {
+	public Set<Product> getProducts()
+	{
 		return products;
 	}
 
 	/**
 	 * 设置商品
-	 * 
+	 *
 	 * @param products
-	 *            商品
+	 *           商品
 	 */
-	public void setProducts(Set<Product> products) {
+	public void setProducts(final Set<Product> products)
+	{
 		this.products = products;
 	}
 
@@ -190,16 +205,21 @@ public class Tag extends OrderEntity {
 	 * 删除前处理
 	 */
 	@PreRemove
-	public void preRemove() {
-		Set<Article> articles = getArticles();
-		if (articles != null) {
-			for (Article article : articles) {
+	public void preRemove()
+	{
+		final Set<Article> articles = getArticles();
+		if (articles != null)
+		{
+			for (final Article article : articles)
+			{
 				article.getTags().remove(this);
 			}
 		}
-		Set<Product> products = getProducts();
-		if (products != null) {
-			for (Product product : products) {
+		final Set<Product> products = getProducts();
+		if (products != null)
+		{
+			for (final Product product : products)
+			{
 				product.getTags().remove(this);
 			}
 		}

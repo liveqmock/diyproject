@@ -1,7 +1,7 @@
 /*
- * 
- * 
- * 
+ *
+ *
+ *
  */
 package net.eshop.controller.shop;
 
@@ -19,10 +19,10 @@ import net.eshop.ResourceNotFoundException;
 import net.eshop.entity.Attribute;
 import net.eshop.entity.Brand;
 import net.eshop.entity.Product;
+import net.eshop.entity.Product.OrderType;
 import net.eshop.entity.ProductCategory;
 import net.eshop.entity.Promotion;
 import net.eshop.entity.Tag;
-import net.eshop.entity.Product.OrderType;
 import net.eshop.service.BrandService;
 import net.eshop.service.ProductCategoryService;
 import net.eshop.service.ProductService;
@@ -38,15 +38,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+
 /**
  * Controller - 商品
- * 
- * 
- * 
+ *
+ *
+ *
  */
 @Controller("shopProductController")
 @RequestMapping("/product")
-public class ProductController extends BaseController {
+public class ProductController extends BaseController
+{
 
 	@Resource(name = "productServiceImpl")
 	private ProductService productService;
@@ -65,8 +67,8 @@ public class ProductController extends BaseController {
 	 * 浏览记录
 	 */
 	@RequestMapping(value = "/history", method = RequestMethod.GET)
-	public @ResponseBody
-	List<Product> history(Long[] ids) {
+	public @ResponseBody List<Product> history(final Long[] ids)
+	{
 		return productService.findList(ids);
 	}
 
@@ -74,25 +76,31 @@ public class ProductController extends BaseController {
 	 * 列表
 	 */
 	@RequestMapping(value = "/list/{productCategoryId}", method = RequestMethod.GET)
-	public String list(@PathVariable Long productCategoryId, Long brandId, Long promotionId, Long[] tagIds, BigDecimal startPrice, BigDecimal endPrice, OrderType orderType, Integer pageNumber, Integer pageSize, HttpServletRequest request, ModelMap model) {
-		ProductCategory productCategory = productCategoryService.find(productCategoryId);
-		if (productCategory == null) {
+	public String list(@PathVariable final Long productCategoryId, final Long brandId, final Long promotionId,
+			final Long[] tagIds, final BigDecimal startPrice, final BigDecimal endPrice, final OrderType orderType,
+			final Integer pageNumber, final Integer pageSize, final HttpServletRequest request, final ModelMap model)
+	{
+		final ProductCategory productCategory = productCategoryService.find(productCategoryId);
+		if (productCategory == null)
+		{
 			throw new ResourceNotFoundException();
 		}
-		Brand brand = brandService.find(brandId);
-		Promotion promotion = promotionService.find(promotionId);
-		List<Tag> tags = tagService.findList(tagIds);
-		Map<Attribute, String> attributeValue = new HashMap<Attribute, String>();
-		if (productCategory != null) {
-			Set<Attribute> attributes = productCategory.getAttributes();
-			for (Attribute attribute : attributes) {
-				String value = request.getParameter("attribute_" + attribute.getId());
-				if (StringUtils.isNotEmpty(value) && attribute.getOptions().contains(value)) {
-					attributeValue.put(attribute, value);
-				}
+		final Brand brand = brandService.find(brandId);
+		final Promotion promotion = promotionService.find(promotionId);
+		final List<Tag> tags = tagService.findList(tagIds);
+		final Map<Attribute, String> attributeValue = new HashMap<Attribute, String>();
+
+		final Set<Attribute> attributes = productCategory.getAttributes();
+		for (final Attribute attribute : attributes)
+		{
+			final String value = request.getParameter("attribute_" + attribute.getId());
+			if (StringUtils.isNotEmpty(value) && attribute.getOptions().contains(value))
+			{
+				attributeValue.put(attribute, value);
 			}
 		}
-		Pageable pageable = new Pageable(pageNumber, pageSize);
+
+		final Pageable pageable = new Pageable(pageNumber, pageSize);
 		model.addAttribute("orderTypes", OrderType.values());
 		model.addAttribute("productCategory", productCategory);
 		model.addAttribute("brand", brand);
@@ -104,7 +112,8 @@ public class ProductController extends BaseController {
 		model.addAttribute("orderType", orderType);
 		model.addAttribute("pageNumber", pageNumber);
 		model.addAttribute("pageSize", pageSize);
-		model.addAttribute("page", productService.findPage(productCategory, brand, promotion, tags, attributeValue, startPrice, endPrice, true, true, null, false, null, null, orderType, pageable));
+		model.addAttribute("page", productService.findPage(productCategory, brand, promotion, tags, attributeValue, startPrice,
+				endPrice, true, true, null, false, null, null, orderType, pageable));
 		return "/shop/product/list";
 	}
 
@@ -112,11 +121,14 @@ public class ProductController extends BaseController {
 	 * 列表
 	 */
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String list(Long brandId, Long promotionId, Long[] tagIds, BigDecimal startPrice, BigDecimal endPrice, OrderType orderType, Integer pageNumber, Integer pageSize, HttpServletRequest request, ModelMap model) {
-		Brand brand = brandService.find(brandId);
-		Promotion promotion = promotionService.find(promotionId);
-		List<Tag> tags = tagService.findList(tagIds);
-		Pageable pageable = new Pageable(pageNumber, pageSize);
+	public String list(final Long brandId, final Long promotionId, final Long[] tagIds, final BigDecimal startPrice,
+			final BigDecimal endPrice, final OrderType orderType, final Integer pageNumber, final Integer pageSize,
+			final HttpServletRequest request, final ModelMap model)
+	{
+		final Brand brand = brandService.find(brandId);
+		final Promotion promotion = promotionService.find(promotionId);
+		final List<Tag> tags = tagService.findList(tagIds);
+		final Pageable pageable = new Pageable(pageNumber, pageSize);
 		model.addAttribute("orderTypes", OrderType.values());
 		model.addAttribute("brand", brand);
 		model.addAttribute("promotion", promotion);
@@ -126,7 +138,8 @@ public class ProductController extends BaseController {
 		model.addAttribute("orderType", orderType);
 		model.addAttribute("pageNumber", pageNumber);
 		model.addAttribute("pageSize", pageSize);
-		model.addAttribute("page", productService.findPage(null, brand, promotion, tags, null, startPrice, endPrice, true, true, null, false, null, null, orderType, pageable));
+		model.addAttribute("page", productService.findPage(null, brand, promotion, tags, null, startPrice, endPrice, true, true,
+				null, false, null, null, orderType, pageable));
 		return "/shop/product/list";
 	}
 
@@ -134,11 +147,14 @@ public class ProductController extends BaseController {
 	 * 搜索
 	 */
 	@RequestMapping(value = "/search", method = RequestMethod.GET)
-	public String search(String keyword, BigDecimal startPrice, BigDecimal endPrice, OrderType orderType, Integer pageNumber, Integer pageSize, ModelMap model) {
-		if (StringUtils.isEmpty(keyword)) {
+	public String search(final String keyword, final BigDecimal startPrice, final BigDecimal endPrice, final OrderType orderType,
+			final Integer pageNumber, final Integer pageSize, final ModelMap model)
+	{
+		if (StringUtils.isEmpty(keyword))
+		{
 			return ERROR_VIEW;
 		}
-		Pageable pageable = new Pageable(pageNumber, pageSize);
+		final Pageable pageable = new Pageable(pageNumber, pageSize);
 		model.addAttribute("orderTypes", OrderType.values());
 		model.addAttribute("productKeyword", keyword);
 		model.addAttribute("startPrice", startPrice);
@@ -152,8 +168,8 @@ public class ProductController extends BaseController {
 	 * 点击数
 	 */
 	@RequestMapping(value = "/hits/{id}", method = RequestMethod.GET)
-	public @ResponseBody
-	Long hits(@PathVariable Long id) {
+	public @ResponseBody Long hits(@PathVariable final Long id)
+	{
 		return productService.viewHits(id);
 	}
 

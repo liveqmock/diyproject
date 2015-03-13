@@ -1,7 +1,7 @@
 /*
- * 
- * 
- * 
+ *
+ *
+ *
  */
 package net.eshop.entity;
 
@@ -29,16 +29,18 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+
 /**
  * Entity - 基类
- * 
- * 
- * 
+ *
+ *
+ *
  */
 @JsonAutoDetect(fieldVisibility = Visibility.NONE, getterVisibility = Visibility.NONE, setterVisibility = Visibility.NONE, isGetterVisibility = Visibility.NONE, creatorVisibility = Visibility.NONE)
 @EntityListeners(EntityListener.class)
 @MappedSuperclass
-public abstract class BaseEntity implements Serializable {
+public abstract class BaseEntity implements Serializable
+{
 
 	private static final long serialVersionUID = -67188388306700736L;
 
@@ -54,15 +56,17 @@ public abstract class BaseEntity implements Serializable {
 	/**
 	 * 保存验证组
 	 */
-	public interface Save extends Default {
-
+	public interface Save extends Default
+	{
+		//
 	}
 
 	/**
 	 * 更新验证组
 	 */
-	public interface Update extends Default {
-
+	public interface Update extends Default
+	{
+		//
 	}
 
 	/** ID */
@@ -76,7 +80,7 @@ public abstract class BaseEntity implements Serializable {
 
 	/**
 	 * 获取ID
-	 * 
+	 *
 	 * @return ID
 	 */
 	@JsonProperty
@@ -85,95 +89,106 @@ public abstract class BaseEntity implements Serializable {
 	// MySQL/SQLServer: @GeneratedValue(strategy = GenerationType.AUTO)
 	// Oracle: @GeneratedValue(strategy = GenerationType.AUTO, generator = "sequenceGenerator")
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "sequenceGenerator")
-	public Long getId() {
+	public Long getId()
+	{
 		return id;
 	}
 
 	/**
 	 * 设置ID
-	 * 
+	 *
 	 * @param id
-	 *            ID
+	 *           ID
 	 */
-	public void setId(Long id) {
+	public void setId(final Long id)
+	{
 		this.id = id;
 	}
 
 	/**
 	 * 获取创建日期
-	 * 
+	 *
 	 * @return 创建日期
 	 */
 	@JsonProperty
 	@Field(store = Store.YES, index = Index.UN_TOKENIZED)
 	@DateBridge(resolution = Resolution.SECOND)
 	@Column(nullable = false, updatable = false)
-	public Date getCreateDate() {
+	public Date getCreateDate()
+	{
 		return createDate;
 	}
 
 	/**
 	 * 设置创建日期
-	 * 
+	 *
 	 * @param createDate
-	 *            创建日期
+	 *           创建日期
 	 */
-	public void setCreateDate(Date createDate) {
+	public void setCreateDate(final Date createDate)
+	{
 		this.createDate = createDate;
 	}
 
 	/**
 	 * 获取修改日期
-	 * 
+	 *
 	 * @return 修改日期
 	 */
 	@JsonProperty
 	@Field(store = Store.YES, index = Index.UN_TOKENIZED)
 	@DateBridge(resolution = Resolution.SECOND)
 	@Column(nullable = false)
-	public Date getModifyDate() {
+	public Date getModifyDate()
+	{
 		return modifyDate;
 	}
 
 	/**
 	 * 设置修改日期
-	 * 
+	 *
 	 * @param modifyDate
-	 *            修改日期
+	 *           修改日期
 	 */
-	public void setModifyDate(Date modifyDate) {
+	public void setModifyDate(final Date modifyDate)
+	{
 		this.modifyDate = modifyDate;
 	}
 
 	/**
 	 * 重写equals方法
-	 * 
+	 *
 	 * @param obj
-	 *            对象
+	 *           对象
 	 * @return 是否相等
 	 */
 	@Override
-	public boolean equals(Object obj) {
-		if (obj == null) {
+	public boolean equals(final Object obj)
+	{
+		if (obj == null)
+		{
 			return false;
 		}
-		if (this == obj) {
+		if (this == obj)
+		{
 			return true;
 		}
-		if (!BaseEntity.class.isAssignableFrom(obj.getClass())) {
+		if (!BaseEntity.class.isAssignableFrom(obj.getClass()))
+		{
 			return false;
 		}
-		BaseEntity other = (BaseEntity) obj;
+		final BaseEntity other = (BaseEntity) obj;
 		return getId() != null ? getId().equals(other.getId()) : false;
 	}
 
 	/**
 	 * 重写hashCode方法
-	 * 
+	 *
 	 * @return hashCode
 	 */
 	@Override
-	public int hashCode() {
+	public int hashCode()
+	{
 		int hashCode = 17;
 		hashCode += null == getId() ? 0 : getId().hashCode() * 31;
 		return hashCode;

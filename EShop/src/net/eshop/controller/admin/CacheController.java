@@ -1,7 +1,7 @@
 /*
- * 
- * 
- * 
+ *
+ *
+ *
  */
 package net.eshop.controller.admin;
 
@@ -15,15 +15,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+
 /**
  * Controller - 缓存
- * 
- * 
- * 
+ *
+ *
+ *
  */
 @Controller("adminCacheController")
 @RequestMapping("/admin/cache")
-public class CacheController extends BaseController {
+public class CacheController extends BaseController
+{
 
 	@Resource(name = "cacheServiceImpl")
 	private CacheService cacheService;
@@ -32,15 +34,20 @@ public class CacheController extends BaseController {
 	 * 缓存查看
 	 */
 	@RequestMapping(value = "/clear", method = RequestMethod.GET)
-	public String clear(ModelMap model) {
+	public String clear(final ModelMap model)
+	{
 		Long totalMemory = null;
 		Long maxMemory = null;
 		Long freeMemory = null;
-		try {
+		try
+		{
 			totalMemory = Runtime.getRuntime().totalMemory() / 1024 / 1024;
 			maxMemory = Runtime.getRuntime().maxMemory() / 1024 / 1024;
 			freeMemory = Runtime.getRuntime().freeMemory() / 1024 / 1024;
-		} catch (Exception e) {
+		}
+		catch (final Exception e)
+		{
+			//
 		}
 		model.addAttribute("totalMemory", totalMemory);
 		model.addAttribute("maxMemory", maxMemory);
@@ -54,7 +61,8 @@ public class CacheController extends BaseController {
 	 * 清除缓存
 	 */
 	@RequestMapping(value = "/clear", method = RequestMethod.POST)
-	public String clear(RedirectAttributes redirectAttributes) {
+	public String clear(final RedirectAttributes redirectAttributes)
+	{
 		cacheService.clear();
 		addFlashMessage(redirectAttributes, SUCCESS_MESSAGE);
 		return "redirect:clear.jhtml";

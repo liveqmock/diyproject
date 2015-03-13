@@ -1,7 +1,7 @@
 /*
- * 
- * 
- * 
+ *
+ *
+ *
  */
 package net.eshop.util;
 
@@ -30,18 +30,21 @@ import org.im4java.core.IMOperation;
 import org.im4java.core.IdentifyCmd;
 import org.springframework.util.Assert;
 
+
 /**
  * Utils - 图片处理(支持JDK、GraphicsMagick、ImageMagick)
- * 
- * 
- * 
+ *
+ *
+ *
  */
-public final class ImageUtils {
+public final class ImageUtils
+{
 
 	/**
 	 * 处理类型
 	 */
-	private enum Type {
+	private enum Type
+	{
 
 		/** 自动 */
 		auto,
@@ -75,17 +78,23 @@ public final class ImageUtils {
 	/** 目标图片品质(取值范围: 0 - 100) */
 	private static final int DEST_QUALITY = 88;
 
-	static {
-		if (graphicsMagickPath == null) {
-			String osName = System.getProperty("os.name").toLowerCase();
-			if (osName.indexOf("windows") >= 0) {
-				String pathVariable = System.getenv("Path");
-				if (pathVariable != null) {
-					String[] paths = pathVariable.split(";");
-					for (String path : paths) {
-						File gmFile = new File(path.trim() + "/gm.exe");
-						File gmdisplayFile = new File(path.trim() + "/gmdisplay.exe");
-						if (gmFile.exists() && gmdisplayFile.exists()) {
+	static
+	{
+		if (graphicsMagickPath == null)
+		{
+			final String osName = System.getProperty("os.name").toLowerCase();
+			if (osName.indexOf("windows") >= 0)
+			{
+				final String pathVariable = System.getenv("Path");
+				if (pathVariable != null)
+				{
+					final String[] paths = pathVariable.split(";");
+					for (final String path : paths)
+					{
+						final File gmFile = new File(path.trim() + "/gm.exe");
+						final File gmdisplayFile = new File(path.trim() + "/gmdisplay.exe");
+						if (gmFile.exists() && gmdisplayFile.exists())
+						{
 							graphicsMagickPath = path.trim();
 							break;
 						}
@@ -94,16 +103,21 @@ public final class ImageUtils {
 			}
 		}
 
-		if (imageMagickPath == null) {
-			String osName = System.getProperty("os.name").toLowerCase();
-			if (osName.indexOf("windows") >= 0) {
-				String pathVariable = System.getenv("Path");
-				if (pathVariable != null) {
-					String[] paths = pathVariable.split(";");
-					for (String path : paths) {
-						File convertFile = new File(path.trim() + "/convert.exe");
-						File compositeFile = new File(path.trim() + "/composite.exe");
-						if (convertFile.exists() && compositeFile.exists()) {
+		if (imageMagickPath == null)
+		{
+			final String osName = System.getProperty("os.name").toLowerCase();
+			if (osName.indexOf("windows") >= 0)
+			{
+				final String pathVariable = System.getenv("Path");
+				if (pathVariable != null)
+				{
+					final String[] paths = pathVariable.split(";");
+					for (final String path : paths)
+					{
+						final File convertFile = new File(path.trim() + "/convert.exe");
+						final File compositeFile = new File(path.trim() + "/composite.exe");
+						if (convertFile.exists() && compositeFile.exists())
+						{
 							imageMagickPath = path.trim();
 							break;
 						}
@@ -112,27 +126,36 @@ public final class ImageUtils {
 			}
 		}
 
-		if (type == Type.auto) {
-			try {
-				IMOperation operation = new IMOperation();
+		if (type == Type.auto)
+		{
+			try
+			{
+				final IMOperation operation = new IMOperation();
 				operation.version();
-				IdentifyCmd identifyCmd = new IdentifyCmd(true);
-				if (graphicsMagickPath != null) {
+				final IdentifyCmd identifyCmd = new IdentifyCmd(true);
+				if (graphicsMagickPath != null)
+				{
 					identifyCmd.setSearchPath(graphicsMagickPath);
 				}
 				identifyCmd.run(operation);
 				type = Type.graphicsMagick;
-			} catch (Throwable e1) {
-				try {
-					IMOperation operation = new IMOperation();
+			}
+			catch (final Throwable e1)
+			{
+				try
+				{
+					final IMOperation operation = new IMOperation();
 					operation.version();
-					IdentifyCmd identifyCmd = new IdentifyCmd(false);
+					final IdentifyCmd identifyCmd = new IdentifyCmd(false);
 					identifyCmd.run(operation);
-					if (imageMagickPath != null) {
+					if (imageMagickPath != null)
+					{
 						identifyCmd.setSearchPath(imageMagickPath);
 					}
 					type = Type.imageMagick;
-				} catch (Throwable e2) {
+				}
+				catch (final Throwable e2)
+				{
 					type = Type.jdk;
 				}
 			}
@@ -142,73 +165,94 @@ public final class ImageUtils {
 	/**
 	 * 不可实例化
 	 */
-	private ImageUtils() {
+	private ImageUtils()
+	{
 	}
 
 	/**
 	 * 等比例图片缩放
-	 * 
+	 *
 	 * @param srcFile
-	 *            源文件
+	 *           源文件
 	 * @param destFile
-	 *            目标文件
+	 *           目标文件
 	 * @param destWidth
-	 *            目标宽度
+	 *           目标宽度
 	 * @param destHeight
-	 *            目标高度
+	 *           目标高度
 	 */
-	public static void zoom(File srcFile, File destFile, int destWidth, int destHeight) {
+	public static void zoom(final File srcFile, final File destFile, final int destWidth, final int destHeight)
+	{
 		Assert.notNull(srcFile);
 		Assert.notNull(destFile);
 		Assert.state(destWidth > 0);
 		Assert.state(destHeight > 0);
-		if (type == Type.jdk) {
+		if (type == Type.jdk)
+		{
 			Graphics2D graphics2D = null;
 			ImageOutputStream imageOutputStream = null;
 			ImageWriter imageWriter = null;
-			try {
-				BufferedImage srcBufferedImage = ImageIO.read(srcFile);
-				int srcWidth = srcBufferedImage.getWidth();
-				int srcHeight = srcBufferedImage.getHeight();
+			try
+			{
+				final BufferedImage srcBufferedImage = ImageIO.read(srcFile);
+				final int srcWidth = srcBufferedImage.getWidth();
+				final int srcHeight = srcBufferedImage.getHeight();
 				int width = destWidth;
 				int height = destHeight;
-				if (srcHeight >= srcWidth) {
+				if (srcHeight >= srcWidth)
+				{
 					width = (int) Math.round(((destHeight * 1.0 / srcHeight) * srcWidth));
-				} else {
+				}
+				else
+				{
 					height = (int) Math.round(((destWidth * 1.0 / srcWidth) * srcHeight));
 				}
-				BufferedImage destBufferedImage = new BufferedImage(destWidth, destHeight, BufferedImage.TYPE_INT_RGB);
+				final BufferedImage destBufferedImage = new BufferedImage(destWidth, destHeight, BufferedImage.TYPE_INT_RGB);
 				graphics2D = destBufferedImage.createGraphics();
 				graphics2D.setBackground(BACKGROUND_COLOR);
 				graphics2D.clearRect(0, 0, destWidth, destHeight);
-				graphics2D.drawImage(srcBufferedImage.getScaledInstance(width, height, Image.SCALE_SMOOTH), (destWidth / 2) - (width / 2), (destHeight / 2) - (height / 2), null);
+				graphics2D.drawImage(srcBufferedImage.getScaledInstance(width, height, Image.SCALE_SMOOTH), (destWidth / 2)
+						- (width / 2), (destHeight / 2) - (height / 2), null);
 
 				imageOutputStream = ImageIO.createImageOutputStream(destFile);
 				imageWriter = ImageIO.getImageWritersByFormatName(FilenameUtils.getExtension(destFile.getName())).next();
 				imageWriter.setOutput(imageOutputStream);
-				ImageWriteParam imageWriteParam = imageWriter.getDefaultWriteParam();
+				final ImageWriteParam imageWriteParam = imageWriter.getDefaultWriteParam();
 				imageWriteParam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
 				imageWriteParam.setCompressionQuality((float) (DEST_QUALITY / 100.0));
 				imageWriter.write(null, new IIOImage(destBufferedImage, null, null), imageWriteParam);
 				imageOutputStream.flush();
-			} catch (IOException e) {
+			}
+			catch (final IOException e)
+			{
 				e.printStackTrace();
-			} finally {
-				if (graphics2D != null) {
+			}
+			finally
+			{
+				if (graphics2D != null)
+				{
 					graphics2D.dispose();
 				}
-				if (imageWriter != null) {
+				if (imageWriter != null)
+				{
 					imageWriter.dispose();
 				}
-				if (imageOutputStream != null) {
-					try {
+				if (imageOutputStream != null)
+				{
+					try
+					{
 						imageOutputStream.close();
-					} catch (IOException e) {
+					}
+					catch (final IOException e)
+					{
+						e.printStackTrace();
 					}
 				}
 			}
-		} else {
-			IMOperation operation = new IMOperation();
+		}
+		else
+		{
+			final IMOperation operation = new IMOperation();
 			operation.thumbnail(destWidth, destHeight);
 			operation.gravity("center");
 			operation.background(toHexEncoding(BACKGROUND_COLOR));
@@ -216,32 +260,51 @@ public final class ImageUtils {
 			operation.quality((double) DEST_QUALITY);
 			operation.addImage(srcFile.getPath());
 			operation.addImage(destFile.getPath());
-			if (type == Type.graphicsMagick) {
-				ConvertCmd convertCmd = new ConvertCmd(true);
-				if (graphicsMagickPath != null) {
+			if (type == Type.graphicsMagick)
+			{
+				final ConvertCmd convertCmd = new ConvertCmd(true);
+				if (graphicsMagickPath != null)
+				{
 					convertCmd.setSearchPath(graphicsMagickPath);
 				}
-				try {
+				try
+				{
 					convertCmd.run(operation);
-				} catch (IOException e) {
-					e.printStackTrace();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				} catch (IM4JavaException e) {
+				}
+				catch (final IOException e)
+				{
 					e.printStackTrace();
 				}
-			} else {
-				ConvertCmd convertCmd = new ConvertCmd(false);
-				if (imageMagickPath != null) {
+				catch (final InterruptedException e)
+				{
+					e.printStackTrace();
+				}
+				catch (final IM4JavaException e)
+				{
+					e.printStackTrace();
+				}
+			}
+			else
+			{
+				final ConvertCmd convertCmd = new ConvertCmd(false);
+				if (imageMagickPath != null)
+				{
 					convertCmd.setSearchPath(imageMagickPath);
 				}
-				try {
+				try
+				{
 					convertCmd.run(operation);
-				} catch (IOException e) {
+				}
+				catch (final IOException e)
+				{
 					e.printStackTrace();
-				} catch (InterruptedException e) {
+				}
+				catch (final InterruptedException e)
+				{
 					e.printStackTrace();
-				} catch (IM4JavaException e) {
+				}
+				catch (final IM4JavaException e)
+				{
 					e.printStackTrace();
 				}
 			}
@@ -250,64 +313,82 @@ public final class ImageUtils {
 
 	/**
 	 * 添加水印
-	 * 
+	 *
 	 * @param srcFile
-	 *            源文件
+	 *           源文件
 	 * @param destFile
-	 *            目标文件
+	 *           目标文件
 	 * @param watermarkFile
-	 *            水印文件
+	 *           水印文件
 	 * @param watermarkPosition
-	 *            水印位置
+	 *           水印位置
 	 * @param alpha
-	 *            水印透明度
+	 *           水印透明度
 	 */
-	public static void addWatermark(File srcFile, File destFile, File watermarkFile, WatermarkPosition watermarkPosition, int alpha) {
+	public static void addWatermark(final File srcFile, final File destFile, final File watermarkFile,
+			final WatermarkPosition watermarkPosition, final int alpha)
+	{
 		Assert.notNull(srcFile);
 		Assert.notNull(destFile);
 		Assert.state(alpha >= 0);
 		Assert.state(alpha <= 100);
-		if (watermarkFile == null || !watermarkFile.exists() || watermarkPosition == null || watermarkPosition == WatermarkPosition.no) {
-			try {
+		if (watermarkFile == null || !watermarkFile.exists() || watermarkPosition == null
+				|| watermarkPosition == WatermarkPosition.no)
+		{
+			try
+			{
 				FileUtils.copyFile(srcFile, destFile);
-			} catch (IOException e) {
+			}
+			catch (final IOException e)
+			{
 				e.printStackTrace();
 			}
 			return;
 		}
-		if (type == Type.jdk) {
+		if (type == Type.jdk)
+		{
 			Graphics2D graphics2D = null;
 			ImageOutputStream imageOutputStream = null;
 			ImageWriter imageWriter = null;
-			try {
-				BufferedImage srcBufferedImage = ImageIO.read(srcFile);
-				int srcWidth = srcBufferedImage.getWidth();
-				int srcHeight = srcBufferedImage.getHeight();
-				BufferedImage destBufferedImage = new BufferedImage(srcWidth, srcHeight, BufferedImage.TYPE_INT_RGB);
+			try
+			{
+				final BufferedImage srcBufferedImage = ImageIO.read(srcFile);
+				final int srcWidth = srcBufferedImage.getWidth();
+				final int srcHeight = srcBufferedImage.getHeight();
+				final BufferedImage destBufferedImage = new BufferedImage(srcWidth, srcHeight, BufferedImage.TYPE_INT_RGB);
 				graphics2D = destBufferedImage.createGraphics();
 				graphics2D.setBackground(BACKGROUND_COLOR);
 				graphics2D.clearRect(0, 0, srcWidth, srcHeight);
 				graphics2D.drawImage(srcBufferedImage, 0, 0, null);
 				graphics2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_ATOP, alpha / 100F));
 
-				BufferedImage watermarkBufferedImage = ImageIO.read(watermarkFile);
-				int watermarkImageWidth = watermarkBufferedImage.getWidth();
-				int watermarkImageHeight = watermarkBufferedImage.getHeight();
+				final BufferedImage watermarkBufferedImage = ImageIO.read(watermarkFile);
+				final int watermarkImageWidth = watermarkBufferedImage.getWidth();
+				final int watermarkImageHeight = watermarkBufferedImage.getHeight();
 				int x = srcWidth - watermarkImageWidth;
 				int y = srcHeight - watermarkImageHeight;
-				if (watermarkPosition == WatermarkPosition.topLeft) {
+				if (watermarkPosition == WatermarkPosition.topLeft)
+				{
 					x = 0;
 					y = 0;
-				} else if (watermarkPosition == WatermarkPosition.topRight) {
+				}
+				else if (watermarkPosition == WatermarkPosition.topRight)
+				{
 					x = srcWidth - watermarkImageWidth;
 					y = 0;
-				} else if (watermarkPosition == WatermarkPosition.center) {
+				}
+				else if (watermarkPosition == WatermarkPosition.center)
+				{
 					x = (srcWidth - watermarkImageWidth) / 2;
 					y = (srcHeight - watermarkImageHeight) / 2;
-				} else if (watermarkPosition == WatermarkPosition.bottomLeft) {
+				}
+				else if (watermarkPosition == WatermarkPosition.bottomLeft)
+				{
 					x = 0;
 					y = srcHeight - watermarkImageHeight;
-				} else if (watermarkPosition == WatermarkPosition.bottomRight) {
+				}
+				else if (watermarkPosition == WatermarkPosition.bottomRight)
+				{
 					x = srcWidth - watermarkImageWidth;
 					y = srcHeight - watermarkImageHeight;
 				}
@@ -316,73 +397,114 @@ public final class ImageUtils {
 				imageOutputStream = ImageIO.createImageOutputStream(destFile);
 				imageWriter = ImageIO.getImageWritersByFormatName(FilenameUtils.getExtension(destFile.getName())).next();
 				imageWriter.setOutput(imageOutputStream);
-				ImageWriteParam imageWriteParam = imageWriter.getDefaultWriteParam();
+				final ImageWriteParam imageWriteParam = imageWriter.getDefaultWriteParam();
 				imageWriteParam.setCompressionMode(ImageWriteParam.MODE_EXPLICIT);
 				imageWriteParam.setCompressionQuality(DEST_QUALITY / 100F);
 				imageWriter.write(null, new IIOImage(destBufferedImage, null, null), imageWriteParam);
 				imageOutputStream.flush();
-			} catch (IOException e) {
+			}
+			catch (final IOException e)
+			{
 				e.printStackTrace();
-			} finally {
-				if (graphics2D != null) {
+			}
+			finally
+			{
+				if (graphics2D != null)
+				{
 					graphics2D.dispose();
 				}
-				if (imageWriter != null) {
+				if (imageWriter != null)
+				{
 					imageWriter.dispose();
 				}
-				if (imageOutputStream != null) {
-					try {
+				if (imageOutputStream != null)
+				{
+					try
+					{
 						imageOutputStream.close();
-					} catch (IOException e) {
+					}
+					catch (final IOException e)
+					{
+						e.printStackTrace();
 					}
 				}
 			}
-		} else {
+		}
+		else
+		{
 			String gravity = "SouthEast";
-			if (watermarkPosition == WatermarkPosition.topLeft) {
+			if (watermarkPosition == WatermarkPosition.topLeft)
+			{
 				gravity = "NorthWest";
-			} else if (watermarkPosition == WatermarkPosition.topRight) {
+			}
+			else if (watermarkPosition == WatermarkPosition.topRight)
+			{
 				gravity = "NorthEast";
-			} else if (watermarkPosition == WatermarkPosition.center) {
+			}
+			else if (watermarkPosition == WatermarkPosition.center)
+			{
 				gravity = "Center";
-			} else if (watermarkPosition == WatermarkPosition.bottomLeft) {
+			}
+			else if (watermarkPosition == WatermarkPosition.bottomLeft)
+			{
 				gravity = "SouthWest";
-			} else if (watermarkPosition == WatermarkPosition.bottomRight) {
+			}
+			else if (watermarkPosition == WatermarkPosition.bottomRight)
+			{
 				gravity = "SouthEast";
 			}
-			IMOperation operation = new IMOperation();
+			final IMOperation operation = new IMOperation();
 			operation.gravity(gravity);
 			operation.dissolve(alpha);
 			operation.quality((double) DEST_QUALITY);
 			operation.addImage(watermarkFile.getPath());
 			operation.addImage(srcFile.getPath());
 			operation.addImage(destFile.getPath());
-			if (type == Type.graphicsMagick) {
-				CompositeCmd compositeCmd = new CompositeCmd(true);
-				if (graphicsMagickPath != null) {
+			if (type == Type.graphicsMagick)
+			{
+				final CompositeCmd compositeCmd = new CompositeCmd(true);
+				if (graphicsMagickPath != null)
+				{
 					compositeCmd.setSearchPath(graphicsMagickPath);
 				}
-				try {
+				try
+				{
 					compositeCmd.run(operation);
-				} catch (IOException e) {
-					e.printStackTrace();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				} catch (IM4JavaException e) {
+				}
+				catch (final IOException e)
+				{
 					e.printStackTrace();
 				}
-			} else {
-				CompositeCmd compositeCmd = new CompositeCmd(false);
-				if (imageMagickPath != null) {
+				catch (final InterruptedException e)
+				{
+					e.printStackTrace();
+				}
+				catch (final IM4JavaException e)
+				{
+					e.printStackTrace();
+				}
+			}
+			else
+			{
+				final CompositeCmd compositeCmd = new CompositeCmd(false);
+				if (imageMagickPath != null)
+				{
 					compositeCmd.setSearchPath(imageMagickPath);
 				}
-				try {
+				try
+				{
 					compositeCmd.run(operation);
-				} catch (IOException e) {
+				}
+				catch (final IOException e)
+				{
 					e.printStackTrace();
-				} catch (InterruptedException e) {
+				}
+				catch (final InterruptedException e)
+				{
 					e.printStackTrace();
-				} catch (IM4JavaException e) {
+				}
+				catch (final IM4JavaException e)
+				{
 					e.printStackTrace();
 				}
 			}
@@ -392,19 +514,22 @@ public final class ImageUtils {
 	/**
 	 * 初始化
 	 */
-	public static void initialize() {
+	public static void initialize()
+	{
+		//
 	}
 
 	/**
 	 * 转换颜色为十六进制代码
-	 * 
+	 *
 	 * @param color
-	 *            颜色
+	 *           颜色
 	 * @return 十六进制代码
 	 */
-	private static String toHexEncoding(Color color) {
+	private static String toHexEncoding(final Color color)
+	{
 		String R, G, B;
-		StringBuffer stringBuffer = new StringBuffer();
+		final StringBuffer stringBuffer = new StringBuffer();
 		R = Integer.toHexString(color.getRed());
 		G = Integer.toHexString(color.getGreen());
 		B = Integer.toHexString(color.getBlue());

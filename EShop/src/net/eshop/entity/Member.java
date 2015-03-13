@@ -1,7 +1,7 @@
 /*
- * 
- * 
- * 
+ *
+ *
+ *
  */
 package net.eshop.entity;
 
@@ -42,23 +42,26 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
+
 /**
  * Entity - 会员
- * 
- * 
- * 
+ *
+ *
+ *
  */
 @Entity
 @Table(name = "t_member")
 @SequenceGenerator(name = "sequenceGenerator", sequenceName = "t_member_sequence")
-public class Member extends BaseEntity {
+public class Member extends BaseEntity
+{
 
 	private static final long serialVersionUID = 1533130686714725835L;
 
 	/**
 	 * 性别
 	 */
-	public enum Gender {
+	public enum Gender
+	{
 
 		/** 男 */
 		male,
@@ -219,971 +222,1099 @@ public class Member extends BaseEntity {
 
 	/**
 	 * 获取用户名
-	 * 
+	 *
 	 * @return 用户名
 	 */
 	@NotEmpty(groups = Save.class)
 	@Pattern(regexp = "^[0-9a-z_A-Z\\u4e00-\\u9fa5]+$")
 	@Column(nullable = false, updatable = false, unique = true, length = 100)
-	public String getUsername() {
+	public String getUsername()
+	{
 		return username;
 	}
 
 	/**
 	 * 设置用户名
-	 * 
+	 *
 	 * @param username
-	 *            用户名
+	 *           用户名
 	 */
-	public void setUsername(String username) {
+	public void setUsername(final String username)
+	{
 		this.username = username;
 	}
 
 	/**
 	 * 获取密码
-	 * 
+	 *
 	 * @return 密码
 	 */
 	@NotEmpty(groups = Save.class)
 	@Pattern(regexp = "^[^\\s&\"<>]+$")
 	@Column(nullable = false)
-	public String getPassword() {
+	public String getPassword()
+	{
 		return password;
 	}
 
 	/**
 	 * 设置密码
-	 * 
+	 *
 	 * @param password
-	 *            密码
+	 *           密码
 	 */
-	public void setPassword(String password) {
+	public void setPassword(final String password)
+	{
 		this.password = password;
 	}
 
 	/**
 	 * 获取E-mail
-	 * 
+	 *
 	 * @return E-mail
 	 */
 	@NotEmpty
 	@Email
 	@Length(max = 200)
 	@Column(nullable = false)
-	public String getEmail() {
+	public String getEmail()
+	{
 		return email;
 	}
 
 	/**
 	 * 设置E-mail
-	 * 
+	 *
 	 * @param email
-	 *            E-mail
+	 *           E-mail
 	 */
-	public void setEmail(String email) {
+	public void setEmail(final String email)
+	{
 		this.email = email;
 	}
 
 	/**
 	 * 获取积分
-	 * 
+	 *
 	 * @return 积分
 	 */
 	@NotNull(groups = Save.class)
 	@Min(0)
 	@Column(nullable = false)
-	public Long getPoint() {
+	public Long getPoint()
+	{
 		return point;
 	}
 
 	/**
 	 * 设置积分
-	 * 
+	 *
 	 * @param point
-	 *            积分
+	 *           积分
 	 */
-	public void setPoint(Long point) {
+	public void setPoint(final Long point)
+	{
 		this.point = point;
 	}
 
 	/**
 	 * 获取消费金额
-	 * 
+	 *
 	 * @return 消费金额
 	 */
 	@Column(nullable = false, precision = 27, scale = 12)
-	public BigDecimal getAmount() {
+	public BigDecimal getAmount()
+	{
 		return amount;
 	}
 
 	/**
 	 * 设置消费金额
-	 * 
+	 *
 	 * @param amount
-	 *            消费金额
+	 *           消费金额
 	 */
-	public void setAmount(BigDecimal amount) {
+	public void setAmount(final BigDecimal amount)
+	{
 		this.amount = amount;
 	}
 
 	/**
 	 * 获取余额
-	 * 
+	 *
 	 * @return 余额
 	 */
 	@NotNull(groups = Save.class)
 	@Min(0)
 	@Digits(integer = 12, fraction = 3)
 	@Column(nullable = false, precision = 27, scale = 12)
-	public BigDecimal getBalance() {
+	public BigDecimal getBalance()
+	{
 		return balance;
 	}
 
 	/**
 	 * 设置余额
-	 * 
+	 *
 	 * @param balance
-	 *            余额
+	 *           余额
 	 */
-	public void setBalance(BigDecimal balance) {
+	public void setBalance(final BigDecimal balance)
+	{
 		this.balance = balance;
 	}
 
 	/**
 	 * 获取是否启用
-	 * 
+	 *
 	 * @return 是否启用
 	 */
 	@NotNull
 	@Column(nullable = false)
-	public Boolean getIsEnabled() {
+	public Boolean getIsEnabled()
+	{
 		return isEnabled;
 	}
 
 	/**
 	 * 设置是否启用
-	 * 
+	 *
 	 * @param isEnabled
-	 *            是否启用
+	 *           是否启用
 	 */
-	public void setIsEnabled(Boolean isEnabled) {
+	public void setIsEnabled(final Boolean isEnabled)
+	{
 		this.isEnabled = isEnabled;
 	}
 
 	/**
 	 * 获取是否锁定
-	 * 
+	 *
 	 * @return 是否锁定
 	 */
 	@Column(nullable = false)
-	public Boolean getIsLocked() {
+	public Boolean getIsLocked()
+	{
 		return isLocked;
 	}
 
 	/**
 	 * 设置是否锁定
-	 * 
+	 *
 	 * @param isLocked
-	 *            是否锁定
+	 *           是否锁定
 	 */
-	public void setIsLocked(Boolean isLocked) {
+	public void setIsLocked(final Boolean isLocked)
+	{
 		this.isLocked = isLocked;
 	}
 
 	/**
 	 * 获取连续登录失败次数
-	 * 
+	 *
 	 * @return 连续登录失败次数
 	 */
 	@Column(nullable = false)
-	public Integer getLoginFailureCount() {
+	public Integer getLoginFailureCount()
+	{
 		return loginFailureCount;
 	}
 
 	/**
 	 * 设置连续登录失败次数
-	 * 
+	 *
 	 * @param loginFailureCount
-	 *            连续登录失败次数
+	 *           连续登录失败次数
 	 */
-	public void setLoginFailureCount(Integer loginFailureCount) {
+	public void setLoginFailureCount(final Integer loginFailureCount)
+	{
 		this.loginFailureCount = loginFailureCount;
 	}
 
 	/**
 	 * 获取锁定日期
-	 * 
+	 *
 	 * @return 锁定日期
 	 */
-	public Date getLockedDate() {
+	public Date getLockedDate()
+	{
 		return lockedDate;
 	}
 
 	/**
 	 * 设置锁定日期
-	 * 
+	 *
 	 * @param lockedDate
-	 *            锁定日期
+	 *           锁定日期
 	 */
-	public void setLockedDate(Date lockedDate) {
+	public void setLockedDate(final Date lockedDate)
+	{
 		this.lockedDate = lockedDate;
 	}
 
 	/**
 	 * 获取注册IP
-	 * 
+	 *
 	 * @return 注册IP
 	 */
 	@Column(nullable = false, updatable = false)
-	public String getRegisterIp() {
+	public String getRegisterIp()
+	{
 		return registerIp;
 	}
 
 	/**
 	 * 设置注册IP
-	 * 
+	 *
 	 * @param registerIp
-	 *            注册IP
+	 *           注册IP
 	 */
-	public void setRegisterIp(String registerIp) {
+	public void setRegisterIp(final String registerIp)
+	{
 		this.registerIp = registerIp;
 	}
 
 	/**
 	 * 获取最后登录IP
-	 * 
+	 *
 	 * @return 最后登录IP
 	 */
-	public String getLoginIp() {
+	public String getLoginIp()
+	{
 		return loginIp;
 	}
 
 	/**
 	 * 设置最后登录IP
-	 * 
+	 *
 	 * @param loginIp
-	 *            最后登录IP
+	 *           最后登录IP
 	 */
-	public void setLoginIp(String loginIp) {
+	public void setLoginIp(final String loginIp)
+	{
 		this.loginIp = loginIp;
 	}
 
 	/**
 	 * 获取最后登录日期
-	 * 
+	 *
 	 * @return 最后登录日期
 	 */
-	public Date getLoginDate() {
+	public Date getLoginDate()
+	{
 		return loginDate;
 	}
 
 	/**
 	 * 设置最后登录日期
-	 * 
+	 *
 	 * @param loginDate
-	 *            最后登录日期
+	 *           最后登录日期
 	 */
-	public void setLoginDate(Date loginDate) {
+	public void setLoginDate(final Date loginDate)
+	{
 		this.loginDate = loginDate;
 	}
 
 	/**
 	 * 获取姓名
-	 * 
+	 *
 	 * @return 姓名
 	 */
 	@Length(max = 200)
-	public String getName() {
+	public String getName()
+	{
 		return name;
 	}
 
 	/**
 	 * 设置姓名
-	 * 
+	 *
 	 * @param name
-	 *            姓名
+	 *           姓名
 	 */
-	public void setName(String name) {
+	public void setName(final String name)
+	{
 		this.name = name;
 	}
 
 	/**
 	 * 获取性别
-	 * 
+	 *
 	 * @return 性别
 	 */
-	public Gender getGender() {
+	public Gender getGender()
+	{
 		return gender;
 	}
 
 	/**
 	 * 设置性别
-	 * 
+	 *
 	 * @param gender
-	 *            性别
+	 *           性别
 	 */
-	public void setGender(Gender gender) {
+	public void setGender(final Gender gender)
+	{
 		this.gender = gender;
 	}
 
 	/**
 	 * 获取出生日期
-	 * 
+	 *
 	 * @return 出生日期
 	 */
-	public Date getBirth() {
+	public Date getBirth()
+	{
 		return birth;
 	}
 
 	/**
 	 * 设置出生日期
-	 * 
+	 *
 	 * @param birth
-	 *            出生日期
+	 *           出生日期
 	 */
-	public void setBirth(Date birth) {
+	public void setBirth(final Date birth)
+	{
 		this.birth = birth;
 	}
 
 	/**
 	 * 获取地址
-	 * 
+	 *
 	 * @return 地址
 	 */
 	@Length(max = 200)
-	public String getAddress() {
+	public String getAddress()
+	{
 		return address;
 	}
 
 	/**
 	 * 设置地址
-	 * 
+	 *
 	 * @param address
-	 *            地址
+	 *           地址
 	 */
-	public void setAddress(String address) {
+	public void setAddress(final String address)
+	{
 		this.address = address;
 	}
 
 	/**
 	 * 获取邮编
-	 * 
+	 *
 	 * @return 邮编
 	 */
 	@Length(max = 200)
-	public String getZipCode() {
+	public String getZipCode()
+	{
 		return zipCode;
 	}
 
 	/**
 	 * 设置邮编
-	 * 
+	 *
 	 * @param zipCode
-	 *            邮编
+	 *           邮编
 	 */
-	public void setZipCode(String zipCode) {
+	public void setZipCode(final String zipCode)
+	{
 		this.zipCode = zipCode;
 	}
 
 	/**
 	 * 获取电话
-	 * 
+	 *
 	 * @return 电话
 	 */
 	@Length(max = 200)
-	public String getPhone() {
+	public String getPhone()
+	{
 		return phone;
 	}
 
 	/**
 	 * 设置电话
-	 * 
+	 *
 	 * @param phone
-	 *            电话
+	 *           电话
 	 */
-	public void setPhone(String phone) {
+	public void setPhone(final String phone)
+	{
 		this.phone = phone;
 	}
 
 	/**
 	 * 获取手机
-	 * 
+	 *
 	 * @return 手机
 	 */
 	@Length(max = 200)
-	public String getMobile() {
+	public String getMobile()
+	{
 		return mobile;
 	}
 
 	/**
 	 * 设置手机
-	 * 
+	 *
 	 * @param mobile
-	 *            手机
+	 *           手机
 	 */
-	public void setMobile(String mobile) {
+	public void setMobile(final String mobile)
+	{
 		this.mobile = mobile;
 	}
 
 	/**
 	 * 获取会员注册项值0
-	 * 
+	 *
 	 * @return 会员注册项值0
 	 */
 	@Length(max = 200)
-	public String getAttributeValue0() {
+	public String getAttributeValue0()
+	{
 		return attributeValue0;
 	}
 
 	/**
 	 * 设置会员注册项值0
-	 * 
+	 *
 	 * @param attributeValue0
-	 *            会员注册项值0
+	 *           会员注册项值0
 	 */
-	public void setAttributeValue0(String attributeValue0) {
+	public void setAttributeValue0(final String attributeValue0)
+	{
 		this.attributeValue0 = attributeValue0;
 	}
 
 	/**
 	 * 获取会员注册项值1
-	 * 
+	 *
 	 * @return 会员注册项值1
 	 */
 	@Length(max = 200)
-	public String getAttributeValue1() {
+	public String getAttributeValue1()
+	{
 		return attributeValue1;
 	}
 
 	/**
 	 * 设置会员注册项值1
-	 * 
+	 *
 	 * @param attributeValue1
-	 *            会员注册项值1
+	 *           会员注册项值1
 	 */
-	public void setAttributeValue1(String attributeValue1) {
+	public void setAttributeValue1(final String attributeValue1)
+	{
 		this.attributeValue1 = attributeValue1;
 	}
 
 	/**
 	 * 获取会员注册项值2
-	 * 
+	 *
 	 * @return 会员注册项值2
 	 */
 	@Length(max = 200)
-	public String getAttributeValue2() {
+	public String getAttributeValue2()
+	{
 		return attributeValue2;
 	}
 
 	/**
 	 * 设置会员注册项值2
-	 * 
+	 *
 	 * @param attributeValue2
-	 *            会员注册项值2
+	 *           会员注册项值2
 	 */
-	public void setAttributeValue2(String attributeValue2) {
+	public void setAttributeValue2(final String attributeValue2)
+	{
 		this.attributeValue2 = attributeValue2;
 	}
 
 	/**
 	 * 获取会员注册项值3
-	 * 
+	 *
 	 * @return 会员注册项值3
 	 */
 	@Length(max = 200)
-	public String getAttributeValue3() {
+	public String getAttributeValue3()
+	{
 		return attributeValue3;
 	}
 
 	/**
 	 * 设置会员注册项值3
-	 * 
+	 *
 	 * @param attributeValue3
-	 *            会员注册项值3
+	 *           会员注册项值3
 	 */
-	public void setAttributeValue3(String attributeValue3) {
+	public void setAttributeValue3(final String attributeValue3)
+	{
 		this.attributeValue3 = attributeValue3;
 	}
 
 	/**
 	 * 获取会员注册项值4
-	 * 
+	 *
 	 * @return 会员注册项值4
 	 */
 	@Length(max = 200)
-	public String getAttributeValue4() {
+	public String getAttributeValue4()
+	{
 		return attributeValue4;
 	}
 
 	/**
 	 * 设置会员注册项值4
-	 * 
+	 *
 	 * @param attributeValue4
-	 *            会员注册项值4
+	 *           会员注册项值4
 	 */
-	public void setAttributeValue4(String attributeValue4) {
+	public void setAttributeValue4(final String attributeValue4)
+	{
 		this.attributeValue4 = attributeValue4;
 	}
 
 	/**
 	 * 获取会员注册项值5
-	 * 
+	 *
 	 * @return 会员注册项值5
 	 */
 	@Length(max = 200)
-	public String getAttributeValue5() {
+	public String getAttributeValue5()
+	{
 		return attributeValue5;
 	}
 
 	/**
 	 * 设置会员注册项值5
-	 * 
+	 *
 	 * @param attributeValue5
-	 *            会员注册项值5
+	 *           会员注册项值5
 	 */
-	public void setAttributeValue5(String attributeValue5) {
+	public void setAttributeValue5(final String attributeValue5)
+	{
 		this.attributeValue5 = attributeValue5;
 	}
 
 	/**
 	 * 获取会员注册项值6
-	 * 
+	 *
 	 * @return 会员注册项值6
 	 */
 	@Length(max = 200)
-	public String getAttributeValue6() {
+	public String getAttributeValue6()
+	{
 		return attributeValue6;
 	}
 
 	/**
 	 * 设置会员注册项值6
-	 * 
+	 *
 	 * @param attributeValue6
-	 *            会员注册项值6
+	 *           会员注册项值6
 	 */
-	public void setAttributeValue6(String attributeValue6) {
+	public void setAttributeValue6(final String attributeValue6)
+	{
 		this.attributeValue6 = attributeValue6;
 	}
 
 	/**
 	 * 获取会员注册项值7
-	 * 
+	 *
 	 * @return 会员注册项值7
 	 */
 	@Length(max = 200)
-	public String getAttributeValue7() {
+	public String getAttributeValue7()
+	{
 		return attributeValue7;
 	}
 
 	/**
 	 * 设置会员注册项值7
-	 * 
+	 *
 	 * @param attributeValue7
-	 *            会员注册项值7
+	 *           会员注册项值7
 	 */
-	public void setAttributeValue7(String attributeValue7) {
+	public void setAttributeValue7(final String attributeValue7)
+	{
 		this.attributeValue7 = attributeValue7;
 	}
 
 	/**
 	 * 获取会员注册项值8
-	 * 
+	 *
 	 * @return 会员注册项值8
 	 */
 	@Length(max = 200)
-	public String getAttributeValue8() {
+	public String getAttributeValue8()
+	{
 		return attributeValue8;
 	}
 
 	/**
 	 * 设置会员注册项值8
-	 * 
+	 *
 	 * @param attributeValue8
-	 *            会员注册项值8
+	 *           会员注册项值8
 	 */
-	public void setAttributeValue8(String attributeValue8) {
+	public void setAttributeValue8(final String attributeValue8)
+	{
 		this.attributeValue8 = attributeValue8;
 	}
 
 	/**
 	 * 获取会员注册项值9
-	 * 
+	 *
 	 * @return 会员注册项值9
 	 */
 	@Length(max = 200)
-	public String getAttributeValue9() {
+	public String getAttributeValue9()
+	{
 		return attributeValue9;
 	}
 
 	/**
 	 * 设置会员注册项值9
-	 * 
+	 *
 	 * @param attributeValue9
-	 *            会员注册项值9
+	 *           会员注册项值9
 	 */
-	public void setAttributeValue9(String attributeValue9) {
+	public void setAttributeValue9(final String attributeValue9)
+	{
 		this.attributeValue9 = attributeValue9;
 	}
 
 	/**
 	 * 获取安全密匙
-	 * 
+	 *
 	 * @return 安全密匙
 	 */
 	@Embedded
-	public SafeKey getSafeKey() {
+	public SafeKey getSafeKey()
+	{
 		return safeKey;
 	}
 
 	/**
 	 * 设置安全密匙
-	 * 
+	 *
 	 * @param safeKey
-	 *            安全密匙
+	 *           安全密匙
 	 */
-	public void setSafeKey(SafeKey safeKey) {
+	public void setSafeKey(final SafeKey safeKey)
+	{
 		this.safeKey = safeKey;
 	}
 
 	/**
 	 * 获取地区
-	 * 
+	 *
 	 * @return 地区
 	 */
 	@ManyToOne(fetch = FetchType.LAZY)
-	public Area getArea() {
+	public Area getArea()
+	{
 		return area;
 	}
 
 	/**
 	 * 设置地区
-	 * 
+	 *
 	 * @param area
-	 *            地区
+	 *           地区
 	 */
-	public void setArea(Area area) {
+	public void setArea(final Area area)
+	{
 		this.area = area;
 	}
 
 	/**
 	 * 获取会员等级
-	 * 
+	 *
 	 * @return 会员等级
 	 */
 	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(nullable = false)
-	public MemberRank getMemberRank() {
+	public MemberRank getMemberRank()
+	{
 		return memberRank;
 	}
 
 	/**
 	 * 设置会员等级
-	 * 
+	 *
 	 * @param memberRank
-	 *            会员等级
+	 *           会员等级
 	 */
-	public void setMemberRank(MemberRank memberRank) {
+	public void setMemberRank(final MemberRank memberRank)
+	{
 		this.memberRank = memberRank;
 	}
 
 	/**
 	 * 获取购物车
-	 * 
+	 *
 	 * @return 购物车
 	 */
 	@OneToOne(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-	public Cart getCart() {
+	public Cart getCart()
+	{
 		return cart;
 	}
 
 	/**
 	 * 设置购物车
-	 * 
+	 *
 	 * @param cart
-	 *            购物车
+	 *           购物车
 	 */
-	public void setCart(Cart cart) {
+	public void setCart(final Cart cart)
+	{
 		this.cart = cart;
 	}
 
 	/**
 	 * 获取订单
-	 * 
+	 *
 	 * @return 订单
 	 */
 	@OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-	public Set<Order> getOrders() {
+	public Set<Order> getOrders()
+	{
 		return orders;
 	}
 
 	/**
 	 * 设置订单
-	 * 
+	 *
 	 * @param orders
-	 *            订单
+	 *           订单
 	 */
-	public void setOrders(Set<Order> orders) {
+	public void setOrders(final Set<Order> orders)
+	{
 		this.orders = orders;
 	}
 
 	/**
 	 * 获取预存款
-	 * 
+	 *
 	 * @return 预存款
 	 */
 	@OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-	public Set<Deposit> getDeposits() {
+	public Set<Deposit> getDeposits()
+	{
 		return deposits;
 	}
 
 	/**
 	 * 设置预存款
-	 * 
+	 *
 	 * @param deposits
-	 *            预存款
+	 *           预存款
 	 */
-	public void setDeposits(Set<Deposit> deposits) {
+	public void setDeposits(final Set<Deposit> deposits)
+	{
 		this.deposits = deposits;
 	}
 
 	/**
 	 * 获取收款单
-	 * 
+	 *
 	 * @return 收款单
 	 */
 	@OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-	public Set<Payment> getPayments() {
+	public Set<Payment> getPayments()
+	{
 		return payments;
 	}
 
 	/**
 	 * 设置收款单
-	 * 
+	 *
 	 * @param payments
-	 *            收款单
+	 *           收款单
 	 */
-	public void setPayments(Set<Payment> payments) {
+	public void setPayments(final Set<Payment> payments)
+	{
 		this.payments = payments;
 	}
 
 	/**
 	 * 获取优惠码
-	 * 
+	 *
 	 * @return 优惠码
 	 */
 	@OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-	public Set<CouponCode> getCouponCodes() {
+	public Set<CouponCode> getCouponCodes()
+	{
 		return couponCodes;
 	}
 
 	/**
 	 * 设置优惠码
-	 * 
+	 *
 	 * @param couponCodes
-	 *            优惠码
+	 *           优惠码
 	 */
-	public void setCouponCodes(Set<CouponCode> couponCodes) {
+	public void setCouponCodes(final Set<CouponCode> couponCodes)
+	{
 		this.couponCodes = couponCodes;
 	}
 
 	/**
 	 * 获取收货地址
-	 * 
+	 *
 	 * @return 收货地址
 	 */
 	@OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	@OrderBy("isDefault desc, createDate desc")
-	public Set<Receiver> getReceivers() {
+	public Set<Receiver> getReceivers()
+	{
 		return receivers;
 	}
 
 	/**
 	 * 设置收货地址
-	 * 
+	 *
 	 * @param receivers
-	 *            收货地址
+	 *           收货地址
 	 */
-	public void setReceivers(Set<Receiver> receivers) {
+	public void setReceivers(final Set<Receiver> receivers)
+	{
 		this.receivers = receivers;
 	}
 
 	/**
 	 * 获取评论
-	 * 
+	 *
 	 * @return 评论
 	 */
 	@OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	@OrderBy("createDate desc")
-	public Set<Review> getReviews() {
+	public Set<Review> getReviews()
+	{
 		return reviews;
 	}
 
 	/**
 	 * 设置评论
-	 * 
+	 *
 	 * @param reviews
-	 *            评论
+	 *           评论
 	 */
-	public void setReviews(Set<Review> reviews) {
+	public void setReviews(final Set<Review> reviews)
+	{
 		this.reviews = reviews;
 	}
 
 	/**
 	 * 获取咨询
-	 * 
+	 *
 	 * @return 咨询
 	 */
 	@OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
 	@OrderBy("createDate desc")
-	public Set<Consultation> getConsultations() {
+	public Set<Consultation> getConsultations()
+	{
 		return consultations;
 	}
 
 	/**
 	 * 设置咨询
-	 * 
+	 *
 	 * @param consultations
-	 *            咨询
+	 *           咨询
 	 */
-	public void setConsultations(Set<Consultation> consultations) {
+	public void setConsultations(final Set<Consultation> consultations)
+	{
 		this.consultations = consultations;
 	}
 
 	/**
 	 * 获取收藏商品
-	 * 
+	 *
 	 * @return 收藏商品
 	 */
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "t_member_favorite_product")
 	@OrderBy("createDate desc")
-	public Set<Product> getFavoriteProducts() {
+	public Set<Product> getFavoriteProducts()
+	{
 		return favoriteProducts;
 	}
 
 	/**
 	 * 设置收藏商品
-	 * 
+	 *
 	 * @param favoriteProducts
-	 *            收藏商品
+	 *           收藏商品
 	 */
-	public void setFavoriteProducts(Set<Product> favoriteProducts) {
+	public void setFavoriteProducts(final Set<Product> favoriteProducts)
+	{
 		this.favoriteProducts = favoriteProducts;
 	}
 
 	/**
 	 * 获取到货通知
-	 * 
+	 *
 	 * @return 到货通知
 	 */
 	@OneToMany(mappedBy = "member", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-	public Set<ProductNotify> getProductNotifies() {
+	public Set<ProductNotify> getProductNotifies()
+	{
 		return productNotifies;
 	}
 
 	/**
 	 * 设置到货通知
-	 * 
+	 *
 	 * @param productNotifies
-	 *            到货通知
+	 *           到货通知
 	 */
-	public void setProductNotifies(Set<ProductNotify> productNotifies) {
+	public void setProductNotifies(final Set<ProductNotify> productNotifies)
+	{
 		this.productNotifies = productNotifies;
 	}
 
 	/**
 	 * 获取接收的消息
-	 * 
+	 *
 	 * @return 接收的消息
 	 */
 	@OneToMany(mappedBy = "receiver", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-	public Set<Message> getInMessages() {
+	public Set<Message> getInMessages()
+	{
 		return inMessages;
 	}
 
 	/**
 	 * 设置接收的消息
-	 * 
+	 *
 	 * @param inMessages
-	 *            接收的消息
+	 *           接收的消息
 	 */
-	public void setInMessages(Set<Message> inMessages) {
+	public void setInMessages(final Set<Message> inMessages)
+	{
 		this.inMessages = inMessages;
 	}
 
 	/**
 	 * 获取发送的消息
-	 * 
+	 *
 	 * @return 发送的消息
 	 */
 	@OneToMany(mappedBy = "sender", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-	public Set<Message> getOutMessages() {
+	public Set<Message> getOutMessages()
+	{
 		return outMessages;
 	}
 
 	/**
 	 * 设置发送的消息
-	 * 
+	 *
 	 * @param outMessages
-	 *            发送的消息
+	 *           发送的消息
 	 */
-	public void setOutMessages(Set<Message> outMessages) {
+	public void setOutMessages(final Set<Message> outMessages)
+	{
 		this.outMessages = outMessages;
 	}
 
 	/**
 	 * 获取会员注册项值
-	 * 
+	 *
 	 * @param memberAttribute
-	 *            会员注册项
+	 *           会员注册项
 	 * @return 会员注册项值
 	 */
 	@Transient
-	public Object getAttributeValue(MemberAttribute memberAttribute) {
-		if (memberAttribute != null) {
-			if (memberAttribute.getType() == Type.name) {
+	public Object getAttributeValue(final MemberAttribute memberAttribute)
+	{
+		if (memberAttribute != null)
+		{
+			if (memberAttribute.getType() == Type.name)
+			{
 				return getName();
-			} else if (memberAttribute.getType() == Type.gender) {
+			}
+			else if (memberAttribute.getType() == Type.gender)
+			{
 				return getGender();
-			} else if (memberAttribute.getType() == Type.birth) {
+			}
+			else if (memberAttribute.getType() == Type.birth)
+			{
 				return getBirth();
-			} else if (memberAttribute.getType() == Type.area) {
+			}
+			else if (memberAttribute.getType() == Type.area)
+			{
 				return getArea();
-			} else if (memberAttribute.getType() == Type.address) {
+			}
+			else if (memberAttribute.getType() == Type.address)
+			{
 				return getAddress();
-			} else if (memberAttribute.getType() == Type.zipCode) {
+			}
+			else if (memberAttribute.getType() == Type.zipCode)
+			{
 				return getZipCode();
-			} else if (memberAttribute.getType() == Type.phone) {
+			}
+			else if (memberAttribute.getType() == Type.phone)
+			{
 				return getPhone();
-			} else if (memberAttribute.getType() == Type.mobile) {
+			}
+			else if (memberAttribute.getType() == Type.mobile)
+			{
 				return getMobile();
-			} else if (memberAttribute.getType() == Type.checkbox) {
-				if (memberAttribute.getPropertyIndex() != null) {
-					try {
-						String propertyName = ATTRIBUTE_VALUE_PROPERTY_NAME_PREFIX + memberAttribute.getPropertyIndex();
-						String propertyValue = (String) PropertyUtils.getProperty(this, propertyName);
-						if (propertyValue != null) {
+			}
+			else if (memberAttribute.getType() == Type.checkbox)
+			{
+				if (memberAttribute.getPropertyIndex() != null)
+				{
+					try
+					{
+						final String propertyName = ATTRIBUTE_VALUE_PROPERTY_NAME_PREFIX + memberAttribute.getPropertyIndex();
+						final String propertyValue = (String) PropertyUtils.getProperty(this, propertyName);
+						if (propertyValue != null)
+						{
 							return JsonUtils.toObject(propertyValue, List.class);
 						}
-					} catch (IllegalAccessException e) {
+					}
+					catch (final IllegalAccessException e)
+					{
 						e.printStackTrace();
-					} catch (InvocationTargetException e) {
+					}
+					catch (final InvocationTargetException e)
+					{
 						e.printStackTrace();
-					} catch (NoSuchMethodException e) {
+					}
+					catch (final NoSuchMethodException e)
+					{
 						e.printStackTrace();
 					}
 				}
-			} else {
-				if (memberAttribute.getPropertyIndex() != null) {
-					try {
-						String propertyName = ATTRIBUTE_VALUE_PROPERTY_NAME_PREFIX + memberAttribute.getPropertyIndex();
-						return (String) PropertyUtils.getProperty(this, propertyName);
-					} catch (IllegalAccessException e) {
+			}
+			else
+			{
+				if (memberAttribute.getPropertyIndex() != null)
+				{
+					try
+					{
+						final String propertyName = ATTRIBUTE_VALUE_PROPERTY_NAME_PREFIX + memberAttribute.getPropertyIndex();
+						return PropertyUtils.getProperty(this, propertyName);
+					}
+					catch (final IllegalAccessException e)
+					{
 						e.printStackTrace();
-					} catch (InvocationTargetException e) {
+					}
+					catch (final InvocationTargetException e)
+					{
 						e.printStackTrace();
-					} catch (NoSuchMethodException e) {
+					}
+					catch (final NoSuchMethodException e)
+					{
 						e.printStackTrace();
 					}
 				}
@@ -1194,59 +1325,100 @@ public class Member extends BaseEntity {
 
 	/**
 	 * 设置会员注册项值
-	 * 
+	 *
 	 * @param memberAttribute
-	 *            会员注册项
+	 *           会员注册项
 	 * @param attributeValue
-	 *            会员注册项值
+	 *           会员注册项值
 	 */
 	@Transient
-	public void setAttributeValue(MemberAttribute memberAttribute, Object attributeValue) {
-		if (memberAttribute != null) {
-			if (attributeValue instanceof String && StringUtils.isEmpty((String) attributeValue)) {
+	public void setAttributeValue(final MemberAttribute memberAttribute, Object attributeValue)
+	{
+		if (memberAttribute != null)
+		{
+			if (attributeValue instanceof String && StringUtils.isEmpty((String) attributeValue))
+			{
 				attributeValue = null;
 			}
-			if (memberAttribute.getType() == Type.name && (attributeValue instanceof String || attributeValue == null)) {
+			if (memberAttribute.getType() == Type.name && (attributeValue instanceof String || attributeValue == null))
+			{
 				setName((String) attributeValue);
-			} else if (memberAttribute.getType() == Type.gender && (attributeValue instanceof Gender || attributeValue == null)) {
+			}
+			else if (memberAttribute.getType() == Type.gender && (attributeValue instanceof Gender || attributeValue == null))
+			{
 				setGender((Gender) attributeValue);
-			} else if (memberAttribute.getType() == Type.birth && (attributeValue instanceof Date || attributeValue == null)) {
+			}
+			else if (memberAttribute.getType() == Type.birth && (attributeValue instanceof Date || attributeValue == null))
+			{
 				setBirth((Date) attributeValue);
-			} else if (memberAttribute.getType() == Type.area && (attributeValue instanceof Area || attributeValue == null)) {
+			}
+			else if (memberAttribute.getType() == Type.area && (attributeValue instanceof Area || attributeValue == null))
+			{
 				setArea((Area) attributeValue);
-			} else if (memberAttribute.getType() == Type.address && (attributeValue instanceof String || attributeValue == null)) {
+			}
+			else if (memberAttribute.getType() == Type.address && (attributeValue instanceof String || attributeValue == null))
+			{
 				setAddress((String) attributeValue);
-			} else if (memberAttribute.getType() == Type.zipCode && (attributeValue instanceof String || attributeValue == null)) {
+			}
+			else if (memberAttribute.getType() == Type.zipCode && (attributeValue instanceof String || attributeValue == null))
+			{
 				setZipCode((String) attributeValue);
-			} else if (memberAttribute.getType() == Type.phone && (attributeValue instanceof String || attributeValue == null)) {
+			}
+			else if (memberAttribute.getType() == Type.phone && (attributeValue instanceof String || attributeValue == null))
+			{
 				setPhone((String) attributeValue);
-			} else if (memberAttribute.getType() == Type.mobile && (attributeValue instanceof String || attributeValue == null)) {
+			}
+			else if (memberAttribute.getType() == Type.mobile && (attributeValue instanceof String || attributeValue == null))
+			{
 				setMobile((String) attributeValue);
-			} else if (memberAttribute.getType() == Type.checkbox && (attributeValue instanceof List || attributeValue == null)) {
-				if (memberAttribute.getPropertyIndex() != null) {
-					if (attributeValue == null || (memberAttribute.getOptions() != null && memberAttribute.getOptions().containsAll((List<?>) attributeValue))) {
-						try {
-							String propertyName = ATTRIBUTE_VALUE_PROPERTY_NAME_PREFIX + memberAttribute.getPropertyIndex();
+			}
+			else if (memberAttribute.getType() == Type.checkbox && (attributeValue instanceof List || attributeValue == null))
+			{
+				if (memberAttribute.getPropertyIndex() != null)
+				{
+					if (attributeValue == null
+							|| (memberAttribute.getOptions() != null && memberAttribute.getOptions().containsAll(
+									(List<?>) attributeValue)))
+					{
+						try
+						{
+							final String propertyName = ATTRIBUTE_VALUE_PROPERTY_NAME_PREFIX + memberAttribute.getPropertyIndex();
 							PropertyUtils.setProperty(this, propertyName, JsonUtils.toJson(attributeValue));
-						} catch (IllegalAccessException e) {
+						}
+						catch (final IllegalAccessException e)
+						{
 							e.printStackTrace();
-						} catch (InvocationTargetException e) {
+						}
+						catch (final InvocationTargetException e)
+						{
 							e.printStackTrace();
-						} catch (NoSuchMethodException e) {
+						}
+						catch (final NoSuchMethodException e)
+						{
 							e.printStackTrace();
 						}
 					}
 				}
-			} else {
-				if (memberAttribute.getPropertyIndex() != null) {
-					try {
-						String propertyName = ATTRIBUTE_VALUE_PROPERTY_NAME_PREFIX + memberAttribute.getPropertyIndex();
+			}
+			else
+			{
+				if (memberAttribute.getPropertyIndex() != null)
+				{
+					try
+					{
+						final String propertyName = ATTRIBUTE_VALUE_PROPERTY_NAME_PREFIX + memberAttribute.getPropertyIndex();
 						PropertyUtils.setProperty(this, propertyName, attributeValue);
-					} catch (IllegalAccessException e) {
+					}
+					catch (final IllegalAccessException e)
+					{
 						e.printStackTrace();
-					} catch (InvocationTargetException e) {
+					}
+					catch (final InvocationTargetException e)
+					{
 						e.printStackTrace();
-					} catch (NoSuchMethodException e) {
+					}
+					catch (final NoSuchMethodException e)
+					{
 						e.printStackTrace();
 					}
 				}
@@ -1258,7 +1430,8 @@ public class Member extends BaseEntity {
 	 * 移除所有会员注册项值
 	 */
 	@Transient
-	public void removeAttributeValue() {
+	public void removeAttributeValue()
+	{
 		setName(null);
 		setGender(null);
 		setBirth(null);
@@ -1267,15 +1440,23 @@ public class Member extends BaseEntity {
 		setZipCode(null);
 		setPhone(null);
 		setMobile(null);
-		for (int i = 0; i < ATTRIBUTE_VALUE_PROPERTY_COUNT; i++) {
-			String propertyName = ATTRIBUTE_VALUE_PROPERTY_NAME_PREFIX + i;
-			try {
+		for (int i = 0; i < ATTRIBUTE_VALUE_PROPERTY_COUNT; i++)
+		{
+			final String propertyName = ATTRIBUTE_VALUE_PROPERTY_NAME_PREFIX + i;
+			try
+			{
 				PropertyUtils.setProperty(this, propertyName, null);
-			} catch (IllegalAccessException e) {
+			}
+			catch (final IllegalAccessException e)
+			{
 				e.printStackTrace();
-			} catch (InvocationTargetException e) {
+			}
+			catch (final InvocationTargetException e)
+			{
 				e.printStackTrace();
-			} catch (NoSuchMethodException e) {
+			}
+			catch (final NoSuchMethodException e)
+			{
 				e.printStackTrace();
 			}
 		}

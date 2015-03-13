@@ -11,6 +11,7 @@
 <%@page import="net.eshop.Setting.CaptchaType"%>
 <%@page import="net.eshop.Setting.AccountLockType"%>
 <%@page import="net.eshop.service.RSAService"%>
+<%@page import="net.eshop.encryption.DESedeEncryption" %>
 <%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <%
 String base = request.getContextPath();
@@ -41,7 +42,10 @@ if (applicationContext != null) {
 	String message = null;
 	String loginFailure = (String) request.getAttribute(FormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME);
 	if (loginFailure != null) {
-		if (loginFailure.equals("org.apache.shiro.authc.pam.UnsupportedTokenException")) {
+		if(loginFailure.equals("net.eshop.encryption.UnAuthorizedUsageOfSoftware")){
+			message = "admin.unauthorizedUsageOfSoftware";
+			response.sendRedirect(base + "/admin/systemConfig/authorize.jhtml");
+		}else if (loginFailure.equals("org.apache.shiro.authc.pam.UnsupportedTokenException")) {
 			message = "admin.captcha.invalid";
 		} else if (loginFailure.equals("org.apache.shiro.authc.UnknownAccountException")) {
 			message = "admin.login.unknownAccount";
@@ -129,8 +133,10 @@ if (applicationContext != null) {
 		});
 		
 		<%if (message != null) {%>
-			$.message("error", "<%=SpringUtils.getMessage(message, setting.getAccountLockCount())%>");
+			$.message("error", "<%=SpringUtils.getMessage(message, setting.getAccountLockCount())%>");			
 		<%}%>
+		
+		
 	});
 </script>
 <%} else {%>

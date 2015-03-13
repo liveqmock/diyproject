@@ -1,7 +1,7 @@
 /*
- * 
- * 
- * 
+ *
+ *
+ *
  */
 package net.eshop.entity;
 
@@ -13,23 +13,26 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+
 /**
  * Entity - 订单日志
- * 
- * 
- * 
+ *
+ *
+ *
  */
 @Entity
 @Table(name = "t_order_log")
 @SequenceGenerator(name = "sequenceGenerator", sequenceName = "t_order_log_sequence")
-public class OrderLog extends BaseEntity {
+public class OrderLog extends BaseEntity
+{
 
 	private static final long serialVersionUID = -2704154761295319939L;
 
 	/**
 	 * 类型
 	 */
-	public enum Type {
+	public enum Type
+	{
 
 		/** 订单创建 */
 		create,
@@ -60,7 +63,7 @@ public class OrderLog extends BaseEntity {
 
 		/** 其它 */
 		other
-	};
+	}
 
 	/** 类型 */
 	private Type type;
@@ -74,15 +77,18 @@ public class OrderLog extends BaseEntity {
 	/** 订单 */
 	private Order order;
 
-	public OrderLog() {
+	public OrderLog()
+	{
 	}
 
-	public OrderLog(Type type, String operator) {
+	public OrderLog(final Type type, final String operator)
+	{
 		this.type = type;
 		this.operator = operator;
 	}
 
-	public OrderLog(Type type, String operator, String content) {
+	public OrderLog(final Type type, final String operator, final String content)
+	{
 		this.type = type;
 		this.operator = operator;
 		this.content = content;
@@ -90,82 +96,90 @@ public class OrderLog extends BaseEntity {
 
 	/**
 	 * 获取类型
-	 * 
+	 *
 	 * @return 类型
 	 */
 	@Column(nullable = false, updatable = false)
-	public Type getType() {
+	public Type getType()
+	{
 		return type;
 	}
 
 	/**
 	 * 设置类型
-	 * 
+	 *
 	 * @param type
-	 *            类型
+	 *           类型
 	 */
-	public void setType(Type type) {
+	public void setType(final Type type)
+	{
 		this.type = type;
 	}
 
 	/**
 	 * 获取操作员
-	 * 
+	 *
 	 * @return 操作员
 	 */
 	@Column(updatable = false)
-	public String getOperator() {
+	public String getOperator()
+	{
 		return operator;
 	}
 
 	/**
 	 * 设置操作员
-	 * 
+	 *
 	 * @param operator
-	 *            操作员
+	 *           操作员
 	 */
-	public void setOperator(String operator) {
+	public void setOperator(final String operator)
+	{
 		this.operator = operator;
 	}
 
 	/**
 	 * 获取内容
-	 * 
+	 *
 	 * @return 内容
 	 */
 	@Column(updatable = false)
-	public String getContent() {
+	public String getContent()
+	{
 		return content;
 	}
 
 	/**
 	 * 设置内容
-	 * 
+	 *
 	 * @param content
-	 *            内容
+	 *           内容
 	 */
-	public void setContent(String content) {
+	public void setContent(final String content)
+	{
 		this.content = content;
 	}
 
 	/**
 	 * 获取订单
-	 * 
+	 *
 	 * @return 订单
 	 */
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "orders", nullable = false, updatable = false)
-	public Order getOrder() {
+	public Order getOrder()
+	{
 		return order;
 	}
 
 	/**
 	 * 设置订单
-	 * 
+	 *
 	 * @param order
-	 *            订单
+	 *           订单
 	 */
-	public void setOrder(Order order) {
+	public void setOrder(final Order order)
+	{
 		this.order = order;
 	}
 

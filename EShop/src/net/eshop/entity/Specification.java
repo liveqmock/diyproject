@@ -1,7 +1,7 @@
 /*
- * 
- * 
- * 
+ *
+ *
+ *
  */
 package net.eshop.entity;
 
@@ -25,30 +25,33 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
+
 /**
  * Entity - 规格
- * 
- * 
- * 
+ *
+ *
+ *
  */
 @Entity
 @Table(name = "t_specification")
 @SequenceGenerator(name = "sequenceGenerator", sequenceName = "t_specification_sequence")
-public class Specification extends OrderEntity {
+public class Specification extends OrderEntity
+{
 
 	private static final long serialVersionUID = -6346775052811140926L;
 
 	/**
 	 * 类型
 	 */
-	public enum Type {
+	public enum Type
+	{
 
 		/** 文本 */
 		text,
 
 		/** 图片 */
 		image
-	};
+	}
 
 	/** 名称 */
 	private String name;
@@ -67,107 +70,117 @@ public class Specification extends OrderEntity {
 
 	/**
 	 * 获取名称
-	 * 
+	 *
 	 * @return 名称
 	 */
 	@NotEmpty
 	@Length(max = 200)
 	@Column(nullable = false)
-	public String getName() {
+	public String getName()
+	{
 		return name;
 	}
 
 	/**
 	 * 设置名称
-	 * 
+	 *
 	 * @param name
-	 *            名称
+	 *           名称
 	 */
-	public void setName(String name) {
+	public void setName(final String name)
+	{
 		this.name = name;
 	}
 
 	/**
 	 * 获取类型
-	 * 
+	 *
 	 * @return 类型
 	 */
 	@NotNull
 	@Column(nullable = false)
-	public Type getType() {
+	public Type getType()
+	{
 		return type;
 	}
 
 	/**
 	 * 设置类型
-	 * 
+	 *
 	 * @param type
-	 *            类型
+	 *           类型
 	 */
-	public void setType(Type type) {
+	public void setType(final Type type)
+	{
 		this.type = type;
 	}
 
 	/**
 	 * 获取备注
-	 * 
+	 *
 	 * @return 备注
 	 */
 	@Length(max = 200)
-	public String getMemo() {
+	public String getMemo()
+	{
 		return memo;
 	}
 
 	/**
 	 * 设置备注
-	 * 
+	 *
 	 * @param memo
-	 *            备注
+	 *           备注
 	 */
-	public void setMemo(String memo) {
+	public void setMemo(final String memo)
+	{
 		this.memo = memo;
 	}
 
 	/**
 	 * 获取规格值
-	 * 
+	 *
 	 * @return 规格值
 	 */
 	@Valid
 	@NotEmpty
 	@OneToMany(mappedBy = "specification", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	@OrderBy("order asc")
-	public List<SpecificationValue> getSpecificationValues() {
+	public List<SpecificationValue> getSpecificationValues()
+	{
 		return specificationValues;
 	}
 
 	/**
 	 * 设置规格值
-	 * 
+	 *
 	 * @param specificationValues
-	 *            规格值
+	 *           规格值
 	 */
-	public void setSpecificationValues(List<SpecificationValue> specificationValues) {
+	public void setSpecificationValues(final List<SpecificationValue> specificationValues)
+	{
 		this.specificationValues = specificationValues;
 	}
 
 	/**
 	 * 获取商品
-	 * 
+	 *
 	 * @return 商品
 	 */
 	@ManyToMany(mappedBy = "specifications", fetch = FetchType.LAZY)
-	public Set<Product> getProducts() {
+	public Set<Product> getProducts()
+	{
 		return products;
 	}
 
 	/**
 	 * 设置商品
-	 * 
+	 *
 	 * @param products
-	 *            商品
+	 *           商品
 	 */
-	public void setProducts(Set<Product> products) {
+	public void setProducts(final Set<Product> products)
+	{
 		this.products = products;
 	}
 

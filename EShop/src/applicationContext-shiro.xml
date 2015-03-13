@@ -12,6 +12,7 @@
 		<property name="filterChainDefinitions">
 			<value>
 				/admin/ = anon
+				/admin/systemConfig/authorize.jhtml = anon
 				/admin/index.jsp = anon
 				/admin/login.jsp = authc
 				/admin/logout.jsp = logout

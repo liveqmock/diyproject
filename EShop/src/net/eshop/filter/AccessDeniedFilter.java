@@ -1,7 +1,7 @@
 /*
- * 
- * 
- * 
+ *
+ *
+ *
  */
 package net.eshop.filter;
 
@@ -17,26 +17,35 @@ import javax.servlet.http.HttpServletResponse;
 
 import sun.misc.BASE64Decoder;
 
+
 /**
  * Filter - 限制访问
- * 
- * 
- * 
+ *
+ *
+ *
  */
-public class AccessDeniedFilter implements Filter {
+public class AccessDeniedFilter implements Filter
+{
 
 	/** 错误消息 */
 	private static final String ERROR_MESSAGE = "Access denied!";
 
-	public void init(FilterConfig filterConfig) throws ServletException {
+	public void init(final FilterConfig filterConfig) throws ServletException
+	{
+		//
 	}
 
-	public void destroy() {
+	public void destroy()
+	{
+		//
 	}
 
-	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-		HttpServletResponse response = (HttpServletResponse) servletResponse;
-		response.addHeader(new String(new BASE64Decoder().decodeBuffer("UG93ZXJlZEJ5"), "utf-8"), new String(new BASE64Decoder().decodeBuffer("U2hvcHh4Lm5ldA=="), "utf-8"));
+	public void doFilter(final ServletRequest servletRequest, final ServletResponse servletResponse, final FilterChain filterChain)
+			throws IOException, ServletException
+	{
+		final HttpServletResponse response = (HttpServletResponse) servletResponse;
+		response.addHeader(new String(new BASE64Decoder().decodeBuffer("UG93ZXJlZEJ5"), "utf-8"),
+				new String(new BASE64Decoder().decodeBuffer("U2hvcHh4Lm5ldA=="), "utf-8"));
 		response.sendError(HttpServletResponse.SC_FORBIDDEN, ERROR_MESSAGE);
 	}
 
