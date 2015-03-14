@@ -12,13 +12,10 @@ import javax.annotation.Resource;
 
 import net.eshop.Setting.AccountLockType;
 import net.eshop.Setting.CaptchaType;
-import net.eshop.encryption.DESedeEncryption;
 import net.eshop.encryption.UnAuthorizedUsageOfSoftware;
 import net.eshop.entity.Admin;
-import net.eshop.entity.SystemConfig;
 import net.eshop.service.AdminService;
 import net.eshop.service.CaptchaService;
-import net.eshop.service.SystemConfigService;
 import net.eshop.util.SettingUtils;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -51,8 +48,7 @@ public class AuthenticationRealm extends AuthorizingRealm
 	@Resource(name = "adminServiceImpl")
 	private AdminService adminService;
 
-	@Resource(name = "systemConfigServiceImpl")
-	private SystemConfigService systemConfigService;
+	public static boolean isAuthorized = false;
 
 	/**
 	 * 获取认证信息
@@ -64,7 +60,7 @@ public class AuthenticationRealm extends AuthorizingRealm
 	@Override
 	protected AuthenticationInfo doGetAuthenticationInfo(final org.apache.shiro.authc.AuthenticationToken token)
 	{
-		if (!isEShopAuthorized())
+		if (!isAuthorized)
 		{
 			throw new UnAuthorizedUsageOfSoftware(
 					"You are not authorized to use this software. Please contact with the vendor of this software immediately!");
@@ -167,18 +163,6 @@ public class AuthenticationRealm extends AuthorizingRealm
 		return null;
 	}
 
-	private boolean isEShopAuthorized()
-	{
-		final SystemConfig encryptionConfig = systemConfigService.getEncryptionConfig();
-		if (encryptionConfig == null)
-		{
-			return false;
-		}
-		else
-		{
-			final String encryptedHex = encryptionConfig.getValue();
-			return DESedeEncryption.matchMACAddress(encryptedHex);
-		}
-	}
+
 
 }

@@ -8,6 +8,7 @@ package net.eshop.controller.admin;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import net.eshop.AuthenticationRealm;
 import net.eshop.Message;
 import net.eshop.Pageable;
 import net.eshop.encryption.DESedeEncryption;
@@ -143,6 +144,7 @@ public class SystemConfigController extends BaseController
 			return "/admin/systemConfig/authorize";
 		}
 		systemConfigService.updateEncryptionString(encryption);
+		AuthenticationRealm.isAuthorized = true;
 		return "redirect:/admin";
 	}
 }
